@@ -4,6 +4,8 @@
   "description": "Timer compound react component",
   "main": "index.js",
   "scripts": {
+    "start": "npx styleguidist server",
+    "build": "npx styleguidist build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Volkov German (https://github.com/volkov97)",

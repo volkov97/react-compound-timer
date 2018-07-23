@@ -13,26 +13,45 @@ class Timer extends React.Component {
       initialTime,
       direction,
       timeToUpdate,
+      onChange: this.setState.bind(this),
     });
 
     this.state = {
       timeParts: {},
+      timerState: null,
     };
+
+    this.pauseTimer = this.pauseTimer.bind(this);
+    this.resumeTimer = this.resumeTimer.bind(this);
   }
 
   componentDidMount() {
-    this.timer.startTimer(this.setState.bind(this));
+    this.timer.start();
   }
 
   componentWillUnmount() {
-    this.timer.stopTimer();
+    this.timer.stop();
+  }
+
+  resumeTimer() {
+    this.timer.resume();
+  }
+
+  pauseTimer() {
+    this.timer.pause();
   }
 
   render() {
-    const { timeParts } = this.state;
+    const { pauseTimer, resumeTimer } = this;
+    const { timeParts, timerState } = this.state;
     const { children } = this.props;
 
-    return children({ ...timeParts });
+    return children({
+      ...timeParts,
+      pauseTimer,
+      resumeTimer,
+      timerState,
+    });
   }
 }
 
