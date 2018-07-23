@@ -3,7 +3,13 @@
 ```jsx
 <Timer>
     {({ d, h, m, s, ms }) => (
-        <div>{d} {h} {m} {s} {ms}</div>
+        <div>
+            <Timer.Days /> days
+            <Timer.Hours /> hours
+            <Timer.Minutes /> minutes
+            <Timer.Seconds /> seconds
+            <Timer.Milliseconds /> milliseconds
+        </div>
     )}
 </Timer>
 ```
@@ -16,29 +22,42 @@
     direction="backward"
 >
     {({ d, h, m, s, ms }) => (
-        <div>{d} {h} {m} {s} {ms}</div>
+        <div>
+            <Timer.Days /> days
+            <Timer.Hours /> hours
+            <Timer.Minutes /> minutes
+            <Timer.Seconds /> seconds
+            <Timer.Milliseconds /> milliseconds
+        </div>
     )}
 </Timer>
 ```
 
-### Pause and Play Button
+### Controls
 
 ```jsx
 <Timer
     initialTime={55000}
-    direction="backward"
 >
-    {({ d, h, m, s, ms, timerState, pauseTimer, resumeTimer }) => (
-        <div>
-            <div>{d} {h} {m} {s} {ms}</div>
-            <br />
+    {({ start, resume, pause, stop, reset, timerState }) => (
+        <React.Fragment>
+            <div>
+                <Timer.Days /> days
+                <Timer.Hours /> hours
+                <Timer.Minutes /> minutes
+                <Timer.Seconds /> seconds
+                <Timer.Milliseconds /> milliseconds
+            </div>
             <div>{timerState}</div>
             <br />
             <div>
-                <button onClick={pauseTimer}>Pause</button>
-                <button onClick={resumeTimer}>Resume</button>
+                <button onClick={start}>Start</button>
+                <button onClick={pause}>Pause</button>
+                <button onClick={resume}>Resume</button>
+                <button onClick={stop}>Stop</button>
+                <button onClick={reset}>Reset</button>
             </div>
-        </div>
+        </React.Fragment>
     )}
 </Timer>
 ```

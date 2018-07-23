@@ -9,6 +9,7 @@ export default class Timer {
     timeToUpdate = 1000,
     onChange = () => {},
   }) {
+    this.initialTime = initialTime;
     this.time = initialTime;
     this.direction = direction;
     this.timeToUpdate = timeToUpdate;
@@ -22,33 +23,53 @@ export default class Timer {
     return this._state.getState();
   }
 
-  start() {
+  _setTimerInterval(callImmediately = false) {
     const { timeToUpdate } = this;
     const repeatedFunc = () => {
       const updatedTime = this.computeTime();
 
       this._onChange({
-        timeParts: getTimeParts(updatedTime),
+        ...getTimeParts(updatedTime),
       });
     };
 
-    this._state.setPlaying();
-    this.timerId = setInterval(repeatedFunc, timeToUpdate);
+    callImmediately && this._onChange({
+      ...getTimeParts(this.time),
+    });
 
-    repeatedFunc();
+    this.timerId = setInterval(repeatedFunc, timeToUpdate);
+  }
+
+  start() {
+    if (this._state.setPlaying()) {
+      this._setTimerInterval(true);
+    }
   }
 
   resume() {
-    this._state.setPlaying();
+    if (!this._state.isStopped() && this._state.setPlaying()) {
+      this._setTimerInterval();
+    }
   }
 
   pause() {
-    this._state.setPaused();
+    if (this._state.setPaused()) {
+      clearInterval(this.timerId);
+    }
   }
 
   stop() {
-    this._state.setStopped();
-    clearInterval(this.timerId);
+    if (this._state.setStopped()) {
+      clearInterval(this.timerId);
+    }
+  }
+
+  reset() {
+    this.time = this.initialTime;
+
+    this._onChange({
+      ...getTimeParts(this.time),
+    });
   }
 
   computeTime() {
@@ -56,9 +77,7 @@ export default class Timer {
       _state, time, direction, timeToUpdate,
     } = this;
 
-    if (_state.isPaused()) {
-      return time;
-    } if (_state.isPlaying()) {
+    if (_state.isPlaying()) {
       switch (direction) {
         case 'forward':
           this.time = time + timeToUpdate;
@@ -80,8 +99,9 @@ export default class Timer {
           return time;
       }
     } else {
-      console.log(_state.getState());
-      throw new Error('Internal error: unknown timer status...');
+      console.warn('Internal error: unknown timer status...');
+
+      return time;
     }
   }
 }

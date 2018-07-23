@@ -14,9 +14,13 @@ export default class TimerState {
   }
 
   setInited() {
+    if (this._state === INITED) return false;
+
     this._state = INITED;
 
     this._onChange();
+
+    return true;
   }
 
   isInited() {
@@ -24,9 +28,13 @@ export default class TimerState {
   }
 
   setPlaying() {
+    if (this._state === PLAYING) return false;
+
     this._state = PLAYING;
 
     this._onChange();
+
+    return true;
   }
 
   isPlaying() {
@@ -34,9 +42,13 @@ export default class TimerState {
   }
 
   setPaused() {
+    if (this._state !== PLAYING) return false;
+
     this._state = PAUSED;
 
     this._onChange();
+
+    return true;
   }
 
   isPaused() {
@@ -44,9 +56,13 @@ export default class TimerState {
   }
 
   setStopped() {
+    if (this._state === INITED) return false;
+
     this._state = STOPPED;
 
     this._onChange();
+
+    return true;
   }
 
   isStopped() {
