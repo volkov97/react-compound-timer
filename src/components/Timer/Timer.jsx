@@ -67,7 +67,7 @@ class Timer extends React.PureComponent {
     });
 
     this.state = {
-      timerState: null,
+      ...this.timer.timeParts,
     };
 
     this.start = this.start.bind(this);
@@ -158,7 +158,7 @@ Timer.propTypes = {
   initialTime: PropTypes.number,
   /** Time to rerender */
   timeToUpdate: PropTypes.number,
-
+  /** Start timer immediately after render */
   startImmediately: PropTypes.bool,
   children: PropTypes.func.isRequired,
 };

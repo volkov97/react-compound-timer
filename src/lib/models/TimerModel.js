@@ -23,6 +23,10 @@ export default class Timer {
     return this._state.getState();
   }
 
+  get timeParts() {
+    return getTimeParts(this.computeTime());
+  }
+
   _setTimerInterval(callImmediately = false) {
     const { timeToUpdate } = this;
     const repeatedFunc = () => {
