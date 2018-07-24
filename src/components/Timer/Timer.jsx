@@ -89,22 +89,32 @@ class Timer extends React.PureComponent {
 
   start() {
     this.timer.start();
+
+    this.props.onStart();
   }
 
   resume() {
     this.timer.resume();
+
+    this.props.onResume();
   }
 
   pause() {
     this.timer.pause();
+
+    this.props.onPause();
   }
 
   stop() {
     this.timer.stop();
+
+    this.props.onStop();
   }
 
   reset() {
     this.timer.reset();
+
+    this.props.onReset();
   }
 
   render() {
@@ -146,6 +156,11 @@ Timer.defaultProps = {
   direction: 'forward',
   initialTime: 0,
   startImmediately: true,
+  onStart: () => {},
+  onResume: () => {},
+  onPause: () => {},
+  onStop: () => {},
+  onReset: () => {},
 };
 
 Timer.propTypes = {
@@ -160,6 +175,17 @@ Timer.propTypes = {
   timeToUpdate: PropTypes.number,
   /** Start timer immediately after render */
   startImmediately: PropTypes.bool,
+  /** Function that will be called on timer start */
+  onStart: PropTypes.func,
+  /** Function that will be called on timer resume */
+  onResume: PropTypes.func,
+  /** Function that will be called on timer pause */
+  onPause: PropTypes.func,
+  /** Function that will be called on timer stop */
+  onStop: PropTypes.func,
+  /** Function that will be called on timer reset */
+  onReset: PropTypes.func,
+
   children: PropTypes.func.isRequired,
 };
 
