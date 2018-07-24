@@ -1,18 +1,21 @@
 import getTimeParts from '../helpers/getTimeParts';
 
 import TimerState from './TimerState';
+import Units from './Units';
 
 export default class Timer {
   constructor({
     initialTime = 0,
     direction = 'forward',
     timeToUpdate = 1000,
+    lastUnit = Units.d,
     onChange = () => {},
   }) {
     this.initialTime = initialTime;
     this.time = initialTime;
     this.direction = direction;
     this.timeToUpdate = timeToUpdate;
+    this.lastUnit = lastUnit;
     this._state = new TimerState(onChange);
     this._onChange = onChange;
 
@@ -24,21 +27,25 @@ export default class Timer {
   }
 
   get timeParts() {
-    return getTimeParts(this.computeTime());
+    return this._getTimeParts(this._computeTime());
+  }
+
+  _getTimeParts(time) {
+    return getTimeParts(time, this.lastUnit);
   }
 
   _setTimerInterval(callImmediately = false) {
     const { timeToUpdate } = this;
     const repeatedFunc = () => {
-      const updatedTime = this.computeTime();
+      const updatedTime = this._computeTime();
 
       this._onChange({
-        ...getTimeParts(updatedTime),
+        ...this._getTimeParts(updatedTime),
       });
     };
 
     callImmediately && this._onChange({
-      ...getTimeParts(this.time),
+      ...this._getTimeParts(this.time),
     });
 
     this.timerId = setInterval(repeatedFunc, timeToUpdate);
@@ -72,11 +79,11 @@ export default class Timer {
     this.time = this.initialTime;
 
     this._onChange({
-      ...getTimeParts(this.time),
+      ...this._getTimeParts(this.time),
     });
   }
 
-  computeTime() {
+  _computeTime() {
     const {
       _state, time, direction, timeToUpdate,
     } = this;

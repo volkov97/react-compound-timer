@@ -126,3 +126,23 @@
     )}
 </Timer>
 ```
+
+### Last Unit Property
+
+```jsx
+<Timer
+    initialTime={60000 * 60 * 48 + 5000}
+    lastUnit="h"
+    direction="backward"
+>
+    {() => (
+        <React.Fragment>
+            <Timer.Days /> days
+            <Timer.Hours /> hours
+            <Timer.Minutes /> minutes
+            <Timer.Seconds /> seconds
+            <Timer.Milliseconds /> milliseconds
+        </React.Fragment>
+    )}
+</Timer>
+```

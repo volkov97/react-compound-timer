@@ -57,12 +57,15 @@ class Timer extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    const { initialTime, direction, timeToUpdate } = this.props;
+    const {
+      initialTime, direction, timeToUpdate, lastUnit,
+    } = this.props;
 
     this.timer = new TimerModel({
       initialTime,
       direction,
       timeToUpdate,
+      lastUnit,
       onChange: this.setState.bind(this),
     });
 
@@ -156,6 +159,7 @@ Timer.defaultProps = {
   direction: 'forward',
   initialTime: 0,
   startImmediately: true,
+  lastUnit: 'd',
   onStart: () => {},
   onResume: () => {},
   onPause: () => {},
@@ -185,6 +189,14 @@ Timer.propTypes = {
   onStop: PropTypes.func,
   /** Function that will be called on timer reset */
   onReset: PropTypes.func,
+  /** Last unit will accumulate time, for example, 26 hours or 90 seconds */
+  lastUnit: PropTypes.oneOf([
+    'ms',
+    's',
+    'm',
+    'h',
+    'd',
+  ]),
 
   children: PropTypes.func.isRequired,
 };

@@ -5,6 +5,7 @@ module.exports = {
         "no-underscore-dangle": "off",
         "react/no-multi-comp": "off",
         "react/prop-types": "off",
-        "react/destructuring-assignment": "off"
+        "react/destructuring-assignment": "off",
+        "no-param-reassign": "off"
     },
 };

@@ -1,11 +1,20 @@
-export default function getTimeParts(time) {
-  const ms = String(time % 1000);
-  const s = String(Math.floor(time / 1000) % 60);
-  const m = String(Math.floor(time / 60000) % 60);
-  const h = String(Math.floor(time / 3600000) % 24);
-  const d = String(Math.floor(time / 216000000));
+export default function getTimeParts(time, lastUnit) {
+  const units = ['ms', 's', 'm', 'h', 'd'];
+  const lastUnitIndex = units.findIndex(unit => unit === lastUnit);
+  const dividers = [1000, 60, 60, 24, 1];
+  const dividersAcc = [1, 1000, 60000, 3600000, 86400000];
 
-  return {
-    d, h, m, s, ms,
-  };
+  const output = units.reduce((obj, unit, index) => {
+    if (index > lastUnitIndex) {
+      obj[unit] = 0;
+    } else if (index === lastUnitIndex) {
+      obj[unit] = Math.floor(time / dividersAcc[index]);
+    } else {
+      obj[unit] = Math.floor(time / dividersAcc[index]) % dividers[index];
+    }
+
+    return obj;
+  }, {});
+
+  return output;
 }
