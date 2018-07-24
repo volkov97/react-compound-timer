@@ -58,7 +58,7 @@ class Timer extends React.PureComponent {
     super(props);
 
     const {
-      initialTime, direction, timeToUpdate, lastUnit,
+      initialTime, direction, timeToUpdate, lastUnit, checkpoints,
     } = this.props;
 
     this.timer = new TimerModel({
@@ -66,6 +66,7 @@ class Timer extends React.PureComponent {
       direction,
       timeToUpdate,
       lastUnit,
+      checkpoints,
       onChange: this.setState.bind(this),
     });
 
@@ -160,6 +161,7 @@ Timer.defaultProps = {
   initialTime: 0,
   startImmediately: true,
   lastUnit: 'd',
+  checkpoints: [],
   onStart: () => {},
   onResume: () => {},
   onPause: () => {},
@@ -197,6 +199,11 @@ Timer.propTypes = {
     'h',
     'd',
   ]),
+  /** Time checkpoints with callback functions */
+  checkpoints: PropTypes.arrayOf(PropTypes.shape({
+    time: PropTypes.number,
+    callback: PropTypes.func,
+  })),
 
   children: PropTypes.func.isRequired,
 };

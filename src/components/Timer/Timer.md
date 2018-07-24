@@ -146,3 +146,32 @@
     )}
 </Timer>
 ```
+
+### With checkpoints
+
+```jsx
+<Timer
+    initialTime={60000 * 60 * 48 + 5000}
+    direction="backward"
+    checkpoints={[
+        {
+            time: 60000 * 60 * 48,
+            callback: () => console.log('Checkpoint A'),
+        },
+        {
+            time: 60000 * 60 * 48 - 5000,
+            callback: () => console.log('Checkpoint B'),
+        }
+    ]}
+>
+    {() => (
+        <React.Fragment>
+            <Timer.Days /> days
+            <Timer.Hours /> hours
+            <Timer.Minutes /> minutes
+            <Timer.Seconds /> seconds
+            <Timer.Milliseconds /> milliseconds
+        </React.Fragment>
+    )}
+</Timer>
+```

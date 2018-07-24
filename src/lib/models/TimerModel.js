@@ -9,6 +9,7 @@ export default class Timer {
     direction = 'forward',
     timeToUpdate = 1000,
     lastUnit = Units.d,
+    checkpoints = [],
     onChange = () => {},
   }) {
     this.initialTime = initialTime;
@@ -16,6 +17,7 @@ export default class Timer {
     this.direction = direction;
     this.timeToUpdate = timeToUpdate;
     this.lastUnit = lastUnit;
+    this.checkpoints = checkpoints;
     this._state = new TimerState(onChange);
     this._onChange = onChange;
 
@@ -37,10 +39,21 @@ export default class Timer {
   _setTimerInterval(callImmediately = false) {
     const { timeToUpdate } = this;
     const repeatedFunc = () => {
+      const oldTime = this.time;
       const updatedTime = this._computeTime();
 
       this._onChange({
         ...this._getTimeParts(updatedTime),
+      });
+
+      this.checkpoints.map(({ time, callback }) => {
+        const checkForForward = time > oldTime && time <= updatedTime;
+        const checkForBackward = time < oldTime && time >= updatedTime;
+        const checkIntersection = this.direction === 'backward' ? checkForBackward : checkForForward;
+
+        if (checkIntersection) {
+          callback();
+        }
       });
     };
 
@@ -109,10 +122,8 @@ export default class Timer {
         default:
           return time;
       }
-    } else {
-      console.warn('Internal error: unknown timer status...');
-
-      return time;
     }
+
+    return time;
   }
 }

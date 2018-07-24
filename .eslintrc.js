@@ -6,6 +6,7 @@ module.exports = {
         "react/no-multi-comp": "off",
         "react/prop-types": "off",
         "react/destructuring-assignment": "off",
-        "no-param-reassign": "off"
+        "no-param-reassign": "off",
+        "array-callback-return": "off"
     },
 };
