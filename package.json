@@ -1,14 +1,23 @@
 {
-  "name": "react-timer",
+  "name": "react-compound-timer",
   "version": "1.0.0",
   "description": "Timer compound react component",
-  "main": "index.js",
+  "main": "build/components/Timer/Timer",
+  "keywords": [
+    "react",
+    "timer",
+    "countdown",
+    "compound",
+    "stopwatch"
+  ],
+  "homepage": "https://github.com/volkov97/react-compound-timer",
   "scripts": {
     "start": "npx styleguidist server",
     "build": "npx styleguidist build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "transpile": "babel src -d build --copy-files"
   },
-  "author": "Volkov German (https://github.com/volkov97)",
+  "author": "German Volkov <Volkov.german.1997@gmail.com> (https://volkov97.com)",
   "license": "ISC",
   "devDependencies": {
     "babel-cli": "^6.26.0",

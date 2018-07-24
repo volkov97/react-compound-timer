@@ -1,8 +1,8 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/index.jsx',
-  mode: 'development',
+  entry: './src/components/Timer/Timer.jsx',
+  mode: 'production',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'index.js',

@@ -4,4 +4,6 @@ module.exports = {
   showSidebar: false,
   exampleMode: 'expand',
   usageMode: 'expand',
+
+  styleguideDir: 'docs',
 };
