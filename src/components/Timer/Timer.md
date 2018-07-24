@@ -1,39 +1,46 @@
 ### Forward Count
 
+Just render a simple timer and start counting forward from 0. Use compound components to render time units.
+You can see all avaliable time units in this example.
+
 ```jsx
 <Timer>
-    {({ d, h, m, s, ms }) => (
-        <div>
+    {() => (
+        <React.Fragment>
             <Timer.Days /> days
             <Timer.Hours /> hours
             <Timer.Minutes /> minutes
             <Timer.Seconds /> seconds
             <Timer.Milliseconds /> milliseconds
-        </div>
+        </React.Fragment>
     )}
 </Timer>
 ```
 
 ### Backward Count
 
+The same simple timer, but counting backward.
+
 ```jsx
 <Timer
     initialTime={55000}
     direction="backward"
 >
-    {({ d, h, m, s, ms }) => (
-        <div>
+    {() => (
+        <React.Fragment>
             <Timer.Days /> days
             <Timer.Hours /> hours
             <Timer.Minutes /> minutes
             <Timer.Seconds /> seconds
             <Timer.Milliseconds /> milliseconds
-        </div>
+        </React.Fragment>
     )}
 </Timer>
 ```
 
 ### Controls
+
+Get action functions from props and use them to control your timer.
 
 ```jsx
 <Timer
@@ -64,6 +71,8 @@
 
 ### No autoplay
 
+You can just render a timer, and then start it only by using action function 'start' from props.
+
 ```jsx
 <Timer
     initialTime={55000}
@@ -93,6 +102,8 @@
 ```
 
 ### With hooks
+
+Write your own hooks on timer actions.
 
 ```jsx
 <Timer
@@ -129,6 +140,9 @@
 
 ### Last Unit Property
 
+Control your last unit. For example, 1 minute 30 seconds can be 90 seconds, if you set lastUnit as 'seconds'.
+It means that minutes, hours and days will not be computed.
+
 ```jsx
 <Timer
     initialTime={60000 * 60 * 48 + 5000}
@@ -148,6 +162,9 @@
 ```
 
 ### With checkpoints
+
+If you need to call some functions on certain time - provide checkpoints property. It is an array of objects.
+Each object contains time and callback, that will be fired, when timer intersects checkpoint's time.
 
 ```jsx
 <Timer
