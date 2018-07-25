@@ -12,15 +12,11 @@ You can see all avaliable time units in this example.
 
 ```jsx
 <Timer>
-    {() => (
-        <React.Fragment>
-            <Timer.Days /> days
-            <Timer.Hours /> hours
-            <Timer.Minutes /> minutes
-            <Timer.Seconds /> seconds
-            <Timer.Milliseconds /> milliseconds
-        </React.Fragment>
-    )}
+    <Timer.Days /> days
+    <Timer.Hours /> hours
+    <Timer.Minutes /> minutes
+    <Timer.Seconds /> seconds
+    <Timer.Milliseconds /> milliseconds
 </Timer>
 ```
 
