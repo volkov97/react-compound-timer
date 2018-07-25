@@ -121,6 +121,26 @@ class Timer extends React.PureComponent {
     this.props.onReset();
   }
 
+  static getUI(children, renderProps) {
+    if (children === null) {
+      return null;
+    }
+
+    if (Array.isArray(children) || React.isValidElement(children)) {
+      return children;
+    }
+
+    if (children.prototype && children.prototype.isReactComponent) {
+      return React.createElement(children, renderProps);
+    }
+
+    if (typeof children === 'function') {
+      return children(renderProps);
+    }
+
+    throw new Error('Please use one of the supported APIs for children');
+  }
+
   render() {
     const {
       start, pause, resume, stop, reset,
@@ -136,7 +156,7 @@ class Timer extends React.PureComponent {
           ms, s, m, h, d,
         }}
       >
-        {children({
+        {Timer.getUI(children, {
           start,
           resume,
           pause,
@@ -162,6 +182,7 @@ Timer.defaultProps = {
   startImmediately: true,
   lastUnit: 'd',
   checkpoints: [],
+  children: null,
   onStart: () => {},
   onResume: () => {},
   onPause: () => {},
@@ -205,7 +226,7 @@ Timer.propTypes = {
     callback: PropTypes.func,
   })),
 
-  children: PropTypes.func.isRequired,
+  children: PropTypes.any,
 };
 
 export default Timer;

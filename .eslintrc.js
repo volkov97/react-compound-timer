@@ -7,6 +7,7 @@ module.exports = {
         "react/prop-types": "off",
         "react/destructuring-assignment": "off",
         "no-param-reassign": "off",
-        "array-callback-return": "off"
+        "array-callback-return": "off",
+        "react/forbid-prop-types": "off"
     },
 };
