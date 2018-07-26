@@ -184,3 +184,50 @@ Each object contains time and callback, that will be fired, when timer intersect
     )}
 </Timer>
 ```
+
+### Change props dynamically and use HOC
+
+```jsx
+const withTimer = timerProps => WrappedComponent => wrappedComponentProps => (
+  <Timer {...timerProps}>
+    {timerRenderProps =>
+      <WrappedComponent {...wrappedComponentProps} timer={timerRenderProps} />}
+  </Timer>
+);
+
+class ClockUpDown extends React.Component {
+    componentDidMount() {
+        const { setCheckpoints, setDirection, setTime, start } = this.props.timer;
+
+        setCheckpoints([
+            {
+                time: 1000,
+                callback: () => setDirection('forward'),
+            },
+            {
+                time: 5000,
+                callback: () => setDirection('backward'),
+            },
+        ]);
+
+        setTimeout(() => {
+            setTime(10000);
+            start();
+        }, 3000);
+    }
+
+    render() {
+        return (
+            <Timer.Seconds />
+        );
+    }
+}
+
+const TimerHOC = withTimer({
+    direction: 'backward',
+    initialTime: 5000,
+    startImmediately: false,
+})(ClockUpDown);
+
+<TimerHOC />
+```

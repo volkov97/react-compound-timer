@@ -79,6 +79,9 @@ class Timer extends React.PureComponent {
     this.resume = this.resume.bind(this);
     this.stop = this.stop.bind(this);
     this.reset = this.reset.bind(this);
+    this.setTime = this.setTime.bind(this);
+    this.setDirection = this.setDirection.bind(this);
+    this.setCheckpoints = this.setCheckpoints.bind(this);
   }
 
   componentDidMount() {
@@ -89,6 +92,26 @@ class Timer extends React.PureComponent {
 
   componentWillUnmount() {
     this.timer.stop();
+  }
+
+  static getUI(children, renderProps) {
+    if (children === null) {
+      return null;
+    }
+
+    if (Array.isArray(children) || React.isValidElement(children)) {
+      return children;
+    }
+
+    if (children.prototype && children.prototype.isReactComponent) {
+      return React.createElement(children, renderProps);
+    }
+
+    if (typeof children === 'function') {
+      return children(renderProps);
+    }
+
+    throw new Error('Please use one of the supported APIs for children');
   }
 
   start() {
@@ -121,29 +144,21 @@ class Timer extends React.PureComponent {
     this.props.onReset();
   }
 
-  static getUI(children, renderProps) {
-    if (children === null) {
-      return null;
-    }
+  setTime(time) {
+    this.timer.setTime(time);
+  }
 
-    if (Array.isArray(children) || React.isValidElement(children)) {
-      return children;
-    }
+  setDirection(direction) {
+    this.timer.setDirection(direction);
+  }
 
-    if (children.prototype && children.prototype.isReactComponent) {
-      return React.createElement(children, renderProps);
-    }
-
-    if (typeof children === 'function') {
-      return children(renderProps);
-    }
-
-    throw new Error('Please use one of the supported APIs for children');
+  setCheckpoints(checkpoints) {
+    this.timer.setCheckpoints(checkpoints);
   }
 
   render() {
     const {
-      start, pause, resume, stop, reset,
+      start, pause, resume, stop, reset, setTime, setDirection, setCheckpoints,
     } = this;
     const {
       ms, s, m, h, d, timerState,
@@ -162,6 +177,9 @@ class Timer extends React.PureComponent {
           pause,
           stop,
           reset,
+          setTime,
+          setDirection,
+          setCheckpoints,
           timerState,
         })}
       </TimerContext.Provider>

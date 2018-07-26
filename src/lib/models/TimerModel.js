@@ -64,6 +64,18 @@ export default class Timer {
     this.timerId = setInterval(repeatedFunc, timeToUpdate);
   }
 
+  setTime(time) {
+    this.time = time;
+  }
+
+  setDirection(direction) {
+    this.direction = direction;
+  }
+
+  setCheckpoints(checkpoints) {
+    this.checkpoints = checkpoints;
+  }
+
   start() {
     if (this._state.setPlaying()) {
       this._setTimerInterval(true);
