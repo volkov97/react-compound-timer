@@ -24,33 +24,33 @@ class TimerValue extends React.Component {
 }
 
 const Milliseconds = () => (
-  <TimerContext.Consumer>
+  <Timer.Consumer>
     {({ ms }) => <TimerValue value={ms} />}
-  </TimerContext.Consumer>
+  </Timer.Consumer>
 );
 
 const Seconds = () => (
-  <TimerContext.Consumer>
+  <Timer.Consumer>
     {({ s }) => <TimerValue value={s} />}
-  </TimerContext.Consumer>
+  </Timer.Consumer>
 );
 
 const Minutes = () => (
-  <TimerContext.Consumer>
+  <Timer.Consumer>
     {({ m }) => <TimerValue value={m} />}
-  </TimerContext.Consumer>
+  </Timer.Consumer>
 );
 
 const Hours = () => (
-  <TimerContext.Consumer>
+  <Timer.Consumer>
     {({ h }) => <TimerValue value={h} />}
-  </TimerContext.Consumer>
+  </Timer.Consumer>
 );
 
 const Days = () => (
-  <TimerContext.Consumer>
+  <Timer.Consumer>
     {({ d }) => <TimerValue value={d} />}
-  </TimerContext.Consumer>
+  </Timer.Consumer>
 );
 
 class Timer extends React.PureComponent {
@@ -115,36 +115,6 @@ class Timer extends React.PureComponent {
     throw new Error('Please use one of the supported APIs for children');
   }
 
-  start() {
-    this.timer.start();
-
-    this.props.onStart();
-  }
-
-  resume() {
-    this.timer.resume();
-
-    this.props.onResume();
-  }
-
-  pause() {
-    this.timer.pause();
-
-    this.props.onPause();
-  }
-
-  stop() {
-    this.timer.stop();
-
-    this.props.onStop();
-  }
-
-  reset() {
-    this.timer.reset();
-
-    this.props.onReset();
-  }
-
   setTime(time) {
     this.timer.setTime(time);
   }
@@ -159,6 +129,36 @@ class Timer extends React.PureComponent {
 
   setCheckpoints(checkpoints) {
     this.timer.setCheckpoints(checkpoints);
+  }
+
+  start() {
+    this.timer.start();
+
+    this.props.onStart();
+  }
+
+  stop() {
+    this.timer.stop();
+
+    this.props.onStop();
+  }
+
+  pause() {
+    this.timer.pause();
+
+    this.props.onPause();
+  }
+
+  reset() {
+    this.timer.reset();
+
+    this.props.onReset();
+  }
+
+  resume() {
+    this.timer.resume();
+
+    this.props.onResume();
   }
 
   render() {
@@ -193,6 +193,7 @@ class Timer extends React.PureComponent {
   }
 }
 
+Timer.Consumer = TimerContext.Consumer;
 Timer.Milliseconds = Milliseconds;
 Timer.Seconds = Seconds;
 Timer.Minutes = Minutes;

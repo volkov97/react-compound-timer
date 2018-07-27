@@ -227,3 +227,37 @@ const TimerHOC = withTimer({
 
 <TimerHOC />
 ```
+
+### Use Timer.Consumer
+
+```jsx
+const withTimer = timerProps => WrappedComponent => wrappedComponentProps => (
+  <Timer {...timerProps}>
+    {timerRenderProps =>
+      <WrappedComponent {...wrappedComponentProps} timer={timerRenderProps} />}
+  </Timer>
+);
+
+class TimerWrapper extends React.Component {
+    shouldComponentUpdate() {
+        return false;
+    }
+
+    render() {
+        return (
+            <div>
+                <div>Simple text</div>
+                <Timer.Consumer>
+                    {() => this.props.timer.getTime()}
+                </Timer.Consumer>
+            </div>
+        );
+    }
+}
+
+const TimerHOC = withTimer({
+    initialTime: 5000,
+})(TimerWrapper);
+
+<TimerHOC />
+```
