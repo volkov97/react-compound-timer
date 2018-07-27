@@ -68,6 +68,10 @@ export default class Timer {
     this.time = time;
   }
 
+  getTime() {
+    return this.time;
+  }
+
   setDirection(direction) {
     this.direction = direction;
   }

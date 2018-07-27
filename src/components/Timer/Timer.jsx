@@ -80,6 +80,7 @@ class Timer extends React.PureComponent {
     this.stop = this.stop.bind(this);
     this.reset = this.reset.bind(this);
     this.setTime = this.setTime.bind(this);
+    this.getTime = this.getTime.bind(this);
     this.setDirection = this.setDirection.bind(this);
     this.setCheckpoints = this.setCheckpoints.bind(this);
   }
@@ -148,6 +149,10 @@ class Timer extends React.PureComponent {
     this.timer.setTime(time);
   }
 
+  getTime() {
+    return this.timer.getTime();
+  }
+
   setDirection(direction) {
     this.timer.setDirection(direction);
   }
@@ -158,7 +163,7 @@ class Timer extends React.PureComponent {
 
   render() {
     const {
-      start, pause, resume, stop, reset, setTime, setDirection, setCheckpoints,
+      start, pause, resume, stop, reset, getTime, setTime, setDirection, setCheckpoints,
     } = this;
     const {
       ms, s, m, h, d, timerState,
@@ -177,6 +182,7 @@ class Timer extends React.PureComponent {
           pause,
           stop,
           reset,
+          getTime,
           setTime,
           setDirection,
           setCheckpoints,
