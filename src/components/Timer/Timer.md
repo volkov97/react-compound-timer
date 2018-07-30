@@ -107,7 +107,7 @@ Write your own hooks on timer actions.
     onStop={() => console.log('onStop hook')}
     onReset={() => console.log('onReset hook')}
 >
-    {({ start, resume, pause, stop, reset, timerState, getTime }) => (
+    {({ start, resume, pause, stop, reset, getTimerState, getTime }) => (
         <React.Fragment>
             <div>
                 <Timer.Days /> days
@@ -116,7 +116,7 @@ Write your own hooks on timer actions.
                 <Timer.Seconds /> seconds
                 <Timer.Milliseconds /> milliseconds
             </div>
-            <div>{timerState} {getTime()}</div>
+            <div>{getTimerState()} {getTime()}</div>
             <br />
             <div>
                 <button onClick={start}>Start</button>
