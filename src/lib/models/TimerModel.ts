@@ -2,12 +2,12 @@ import getTimeParts, { Unit, TimePartsType } from '../helpers/getTimeParts';
 
 import TimerState from './TimerState';
 
-interface Checkpoint {
+export interface Checkpoint {
   time: number;
   callback: () => any;
 }
 
-type Direction = 'forward' | 'backward';
+export type Direction = 'forward' | 'backward';
 
 export default class Timer {
   private initialTime: number;

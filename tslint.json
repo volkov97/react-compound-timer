@@ -17,7 +17,10 @@
       "no-empty-interface": false,
       "no-object-literal-type-assertion": false,
       "ordered-imports": false,
-      "quotemark": false
+      "quotemark": false,
+      "max-classes-per-file": false,
+      "no-this-assignment": false,
+      "jsx-no-multiline-js": false
     }
   }
   

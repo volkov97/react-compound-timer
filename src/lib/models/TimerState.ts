@@ -3,13 +3,13 @@ export const PLAYING = 'PLAYING';
 export const PAUSED = 'PAUSED';
 export const STOPPED = 'STOPPED';
 
-type TimerStates = 'INITED' | 'PLAYING' | 'PAUSED' | 'STOPPED';
+export type TimerStateType = 'INITED' | 'PLAYING' | 'PAUSED' | 'STOPPED';
 
 export default class TimerState {
   private onChange: () => any;
-  private state: TimerStates = INITED;
+  private state: TimerStateType = INITED;
 
-  constructor(onChangeStatus = (obj: { timerState: TimerStates }) => {}) {
+  constructor(onChangeStatus = (obj: { timerState: TimerStateType }) => {}) {
     this.onChange = () => onChangeStatus({ timerState: this.state });
     this.state = INITED;
   }
