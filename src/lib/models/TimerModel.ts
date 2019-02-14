@@ -115,7 +115,9 @@ export default class Timer {
       this.checkpoints.map(({ time, callback }) => {
         const checkForForward = time > oldTime && time <= updatedTime;
         const checkForBackward = time < oldTime && time >= updatedTime;
-        const checkIntersection = this.direction === 'backward' ? checkForBackward : checkForForward;
+        const checkIntersection = this.direction === 'backward' ?
+          checkForBackward :
+          checkForForward;
 
         if (checkIntersection) {
           callback();

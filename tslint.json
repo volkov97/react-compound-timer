@@ -1,7 +1,7 @@
 {
     "extends": [
       "tslint:latest",
-      "tslint-eslint-rules",
+      "tslint-config-airbnb",
       "tslint-react"
     ],
     "rules": {
@@ -20,7 +20,10 @@
       "quotemark": false,
       "max-classes-per-file": false,
       "no-this-assignment": false,
-      "jsx-no-multiline-js": false
+      "jsx-no-multiline-js": false,
+      "variable-name": [true, "allow-pascal-case"],
+      "import-name": false,
+      "prefer-array-literal": false
     }
   }
   
