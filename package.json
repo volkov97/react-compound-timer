@@ -1,6 +1,6 @@
 {
   "name": "react-compound-timer",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Timer compound react component",
   "main": "build/components/Timer/Timer",
   "types": "build/components/Timer/Timer.d.ts",
