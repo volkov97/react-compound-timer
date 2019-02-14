@@ -1,12 +1,4 @@
-import getTimeParts from './getTimeParts';
-
-interface TimePartsType {
-  ms: number;
-  s: number;
-  m: number;
-  h: number;
-  d: number;
-}
+import getTimeParts, { TimePartsType, Unit } from './getTimeParts';
 
 describe('#getTimeParts', () => {
   [
@@ -21,7 +13,7 @@ describe('#getTimeParts', () => {
     [90061030, 'd', { d: 1, h: 1, m: 1, s: 1, ms: 30 }],
   ].forEach(([time, lastUnit, result]) => {
     it(`should return right result for time = ${time} and lastUnit = ${lastUnit}`, () => {
-      expect(getTimeParts(time, lastUnit)).toStrictEqual({
+      expect(getTimeParts(time as number, lastUnit as Unit)).toStrictEqual({
         ms: 0,
         s: 0,
         m: 0,
