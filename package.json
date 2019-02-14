@@ -16,7 +16,7 @@
     "start": "npx styleguidist server",
     "build": "npx styleguidist build",
     "test": "jest",
-    "transpile": "tsc --module commonjs",
+    "transpile": "tsc",
     "prepublishOnly": "npm run transpile"
   },
   "author": "German Volkov <Volkov.german.1997@gmail.com> (https://volkov97.com)",
