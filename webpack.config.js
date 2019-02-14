@@ -8,6 +8,9 @@ module.exports = {
     filename: 'index.js',
     libraryTarget: 'commonjs2',
   },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+  },
   module: {
     rules: [
       {
@@ -24,6 +27,10 @@ module.exports = {
             ],
           },
         },
+      },
+      {
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
       },
     ],
   },
