@@ -3,6 +3,7 @@
   "version": "1.0.8",
   "description": "Timer compound react component",
   "main": "build/components/Timer/Timer",
+  "types": "build/components/Timer/Timer.d.ts",
   "keywords": [
     "react",
     "timer",
@@ -15,7 +16,7 @@
     "start": "npx styleguidist server",
     "build": "npx styleguidist build",
     "test": "jest",
-    "transpile": "babel src -d build --copy-files"
+    "transpile": "tsc --module commonjs"
   },
   "author": "German Volkov <Volkov.german.1997@gmail.com> (https://volkov97.com)",
   "license": "ISC",

@@ -180,56 +180,6 @@ class Timer extends React.PureComponent<TimerProps, TimerState> {
     this.timer.stop();
   }
 
-  public setTime(time) {
-    this.timer.setTime(time);
-  }
-
-  public getTime() {
-    return this.timer.getTime();
-  }
-
-  public getTimerState() {
-    return this.timer.state;
-  }
-
-  public setDirection(direction) {
-    this.timer.setDirection(direction);
-  }
-
-  public setCheckpoints(checkpoints) {
-    this.timer.setCheckpoints(checkpoints);
-  }
-
-  public start() {
-    this.timer.start();
-
-    this.props.onStart();
-  }
-
-  public stop() {
-    this.timer.stop();
-
-    this.props.onStop();
-  }
-
-  public pause() {
-    this.timer.pause();
-
-    this.props.onPause();
-  }
-
-  public reset() {
-    this.timer.reset();
-
-    this.props.onReset();
-  }
-
-  public resume() {
-    this.timer.resume();
-
-    this.props.onResume();
-  }
-
   public render() {
     const {
       start, pause, resume, stop, reset,
@@ -260,6 +210,56 @@ class Timer extends React.PureComponent<TimerProps, TimerState> {
         })}
       </TimerContext.Provider>
     );
+  }
+
+  private setTime(time) {
+    this.timer.setTime(time);
+  }
+
+  private getTime() {
+    return this.timer.getTime();
+  }
+
+  private getTimerState() {
+    return this.timer.state;
+  }
+
+  private setDirection(direction) {
+    this.timer.setDirection(direction);
+  }
+
+  private setCheckpoints(checkpoints) {
+    this.timer.setCheckpoints(checkpoints);
+  }
+
+  private start() {
+    this.timer.start();
+
+    this.props.onStart();
+  }
+
+  private stop() {
+    this.timer.stop();
+
+    this.props.onStop();
+  }
+
+  private pause() {
+    this.timer.pause();
+
+    this.props.onPause();
+  }
+
+  private reset() {
+    this.timer.reset();
+
+    this.props.onReset();
+  }
+
+  private resume() {
+    this.timer.resume();
+
+    this.props.onResume();
   }
 }
 
