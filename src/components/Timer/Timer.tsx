@@ -1,63 +1,59 @@
 import React from 'react';
 
 import TimerModel from '../../lib/models/TimerModel';
-import { TimePartsType } from 'src/lib/helpers/getTimeParts';
+import { TimePartsType, Unit } from 'src/lib/helpers/getTimeParts';
 import { TimerStateType } from 'src/lib/models/TimerState';
 
-const TimerContext = React.createContext<TimePartsType>({
+type FormatValueType = (value: number) => string;
+
+type TimerContextType = TimePartsType & {
+  formatValue: FormatValueType;
+};
+
+const TimerContext = React.createContext<TimerContextType>({
   ms: 0,
   s: 0,
   m: 0,
   h: 0,
   d: 0,
+  formatValue: value => String(value),
 });
 
-class TimerValue extends React.Component<{ value: number }> {
-  public shouldComponentUpdate(nextProps) {
-    const { value } = this.props;
+const TimerValue: React.SFC<{ unit: Unit, formatValue?: FormatValueType }> = ({
+  unit,
+  formatValue,
+}) => (
+  <Timer.Consumer>
+    {(props) => {
+      const format = formatValue || props.formatValue;
 
-    if (value !== nextProps.value) {
-      return true;
-    }
+      return format(props[unit]) || null;
+    }}
+  </Timer.Consumer>
+);
 
-    return false;
-  }
-
-  public render() {
-    const { value } = this.props;
-
-    return String(value) || null;
-  }
+interface TimerValueItemProps {
+  formatValue?: FormatValueType;
 }
 
-const Milliseconds = () => (
-  <Timer.Consumer>
-    {({ ms }) => <TimerValue value={ms} />}
-  </Timer.Consumer>
+const Milliseconds: React.SFC<TimerValueItemProps> = props => (
+  <TimerValue unit="ms" {...props} />
 );
 
-const Seconds = () => (
-  <Timer.Consumer>
-    {({ s }) => <TimerValue value={s} />}
-  </Timer.Consumer>
+const Seconds: React.SFC<TimerValueItemProps> = props => (
+  <TimerValue unit="s" {...props} />
 );
 
-const Minutes = () => (
-  <Timer.Consumer>
-    {({ m }) => <TimerValue value={m} />}
-  </Timer.Consumer>
+const Minutes: React.SFC<TimerValueItemProps> = props => (
+  <TimerValue unit="m" {...props} />
 );
 
-const Hours = () => (
-  <Timer.Consumer>
-    {({ h }) => <TimerValue value={h} />}
-  </Timer.Consumer>
+const Hours: React.SFC<TimerValueItemProps> = props => (
+  <TimerValue unit="h" {...props} />
 );
 
-const Days = () => (
-  <Timer.Consumer>
-    {({ d }) => <TimerValue value={d} />}
-  </Timer.Consumer>
+const Days: React.SFC<TimerValueItemProps> = props => (
+  <TimerValue unit="d" {...props} />
 );
 
 interface TimerProps {
@@ -69,6 +65,8 @@ interface TimerProps {
   timeToUpdate?: number;
   /** Start timer immediately after render */
   startImmediately?: boolean;
+  /** Function to format all values */
+  formatValue?: (value: number) => string;
   /** Function that will be called on timer start */
   onStart?: () => any;
   /** Function that will be called on timer resume */
@@ -108,6 +106,7 @@ class Timer extends React.PureComponent<TimerProps, TimerState> {
     lastUnit: 'd',
     checkpoints: [],
     children: null,
+    formatValue: value => String(value),
     onStart: () => {},
     onResume: () => {},
     onPause: () => {},
@@ -189,11 +188,11 @@ class Timer extends React.PureComponent<TimerProps, TimerState> {
     const {
       ms, s, m, h, d, timerState,
     } = this.state;
-    const { children } = this.props;
+    const { formatValue, children } = this.props;
 
     return (
       <TimerContext.Provider
-        value={{ ms, s, m, h, d }}
+        value={{ ms, s, m, h, d, formatValue }}
       >
         {Timer.getUI(children, {
           start,

@@ -9,6 +9,19 @@ You can see all avaliable time units in this example.
 </Timer>
 ```
 
+### Forward Count with formatting
+
+You can format all values by passing `formatValue` prop to Timer component. If you want to make value it's own formatting - just pass `formatValue` to appropriate component, like in this example.
+
+```jsx
+<Timer formatValue={(value) => `${(value < 10 ? `0${value}` : value)} units `}>
+    <Timer.Hours formatValue={value => `${value} hours. `} />
+    <Timer.Minutes />
+    <Timer.Seconds formatValue={value => `${value} s. `} />
+    <Timer.Milliseconds />
+</Timer>
+```
+
 ### Backward Count
 
 The same simple timer, but counting backward.
