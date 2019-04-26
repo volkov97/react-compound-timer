@@ -8,9 +8,10 @@
     "jsx": "react",
     "baseUrl": ".",
     "lib": ["dom", "es2015", "es2016", "es2017"],
+    "types": ["jest"],
     "declaration": true,
     "outDir": "./build"
   },
-  "exclude": ["node_modules", "build"],
+  "exclude": ["node_modules", "build", "src/**/*.test.tsx", "src/**/*.test.ts"],
   "include": ["src/**/*.ts", "src/**/*.tsx"]
 }
