@@ -1,8 +1,8 @@
 import React from 'react';
 
 import TimerModel from '../../lib/models/TimerModel';
-import { TimePartsType, Unit } from 'src/lib/helpers/getTimeParts';
-import { TimerStateType } from 'src/lib/models/TimerState';
+import { TimePartsType, Unit } from '../../lib/helpers/getTimeParts';
+import { TimerStateType } from '../../lib/models/TimerState';
 
 type FormatValueType = (value: number) => string;
 

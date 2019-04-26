@@ -127,7 +127,7 @@ export default class Timer {
 
     callImmediately && this.onChange(this.getTimeParts(this.time));
 
-    this.timerId = setInterval(repeatedFunc, this.timeToUpdate);
+    this.timerId = window.setInterval(repeatedFunc, this.timeToUpdate);
   }
 
   private computeTime() {
