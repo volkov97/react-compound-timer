@@ -1,4 +1,4 @@
-import { Unit, TimeParts } from "src/types";
+import { Unit, TimeParts } from '../../types';
 
 export default function getTimeParts(time: number, lastUnit: Unit): TimeParts {
   const units: Unit[] = ['ms', 's', 'm', 'h', 'd'];

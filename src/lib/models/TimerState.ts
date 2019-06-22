@@ -1,4 +1,4 @@
-import { TimerStateValues } from "src/types";
+import { TimerStateValues } from '../../types';
 
 export const INITED = 'INITED';
 export const PLAYING = 'PLAYING';

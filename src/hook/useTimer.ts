@@ -5,8 +5,8 @@ import {
   TimeParts,
   Direction,
   TimerValue,
-} from "src/types";
-import { TimerModel } from "src/lib/models/TimerModel";
+} from '../types';
+import { TimerModel } from '../lib/models/TimerModel';
 
 interface TimerOptions {
   initialTime: number;

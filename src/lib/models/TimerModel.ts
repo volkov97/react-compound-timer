@@ -1,7 +1,7 @@
 import getTimeParts from '../helpers/getTimeParts';
 
 import TimerState from './TimerState';
-import { TimeParts, Checkpoint, Direction, TimerValue, Unit } from 'src/types';
+import { TimeParts, Checkpoint, Direction, TimerValue, Unit } from '../../types';
 
 export class TimerModel {
   private initialTime: number;

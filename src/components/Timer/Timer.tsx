@@ -1,5 +1,5 @@
 import React from 'react';
-import { TimerStateValues, TimeParts, Unit } from 'src/types';
+import { TimerStateValues, TimeParts, Unit } from '../../types';
 
 import { TimerModel } from '../../lib/models/TimerModel';
 
