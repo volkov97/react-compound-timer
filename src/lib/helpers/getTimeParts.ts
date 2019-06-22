@@ -1,14 +1,6 @@
-export type Unit = 'ms' | 's' | 'm' | 'h' | 'd';
+import { Unit, TimeParts } from "src/types";
 
-export interface TimePartsType {
-  ms: number;
-  s: number;
-  m: number;
-  h: number;
-  d: number;
-}
-
-export default function getTimeParts(time: number, lastUnit: Unit): TimePartsType {
+export default function getTimeParts(time: number, lastUnit: Unit): TimeParts {
   const units: Unit[] = ['ms', 's', 'm', 'h', 'd'];
   const lastUnitIndex = units.findIndex(unit => unit === lastUnit);
 

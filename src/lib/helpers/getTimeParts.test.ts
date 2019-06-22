@@ -1,4 +1,6 @@
-import getTimeParts, { TimePartsType, Unit } from './getTimeParts';
+import { TimeParts, Unit } from '../../types';
+
+import getTimeParts from './getTimeParts';
 
 describe('#getTimeParts', () => {
   [
@@ -19,7 +21,7 @@ describe('#getTimeParts', () => {
         m: 0,
         h: 0,
         d: 0,
-        ...(result as TimePartsType),
+        ...(result as TimeParts),
       });
     });
   });

@@ -1,16 +1,16 @@
+import { TimerStateValues } from "src/types";
+
 export const INITED = 'INITED';
 export const PLAYING = 'PLAYING';
 export const PAUSED = 'PAUSED';
 export const STOPPED = 'STOPPED';
 
-export type TimerStateType = 'INITED' | 'PLAYING' | 'PAUSED' | 'STOPPED';
-
 export default class TimerState {
-  private onChange: () => any;
-  private state: TimerStateType = INITED;
+  private onChange: () => void;
+  private state: TimerStateValues = INITED;
 
-  constructor(onChangeStatus = (obj: { timerState: TimerStateType }) => {}) {
-    this.onChange = () => onChangeStatus({ timerState: this.state });
+  constructor(onChangeStatus = (obj: { state: TimerStateValues }) => {}) {
+    this.onChange = () => onChangeStatus({ state: this.state });
     this.state = INITED;
   }
 

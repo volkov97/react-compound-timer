@@ -1,12 +1,11 @@
 import React from 'react';
+import { TimerStateValues, TimeParts, Unit } from 'src/types';
 
-import TimerModel from '../../lib/models/TimerModel';
-import { TimePartsType, Unit } from '../../lib/helpers/getTimeParts';
-import { TimerStateType } from '../../lib/models/TimerState';
+import { TimerModel } from '../../lib/models/TimerModel';
 
 type FormatValueType = (value: number) => string;
 
-type TimerContextType = TimePartsType & {
+type TimerContextType = TimeParts & {
   formatValue: FormatValueType;
 };
 
@@ -86,8 +85,8 @@ interface TimerProps {
   }>;
 }
 
-interface TimerState extends TimePartsType {
-  timerState: TimerStateType;
+interface TimerState extends TimeParts {
+  timerState: TimerStateValues;
 }
 
 class Timer extends React.PureComponent<TimerProps, TimerState> {

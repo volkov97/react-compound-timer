@@ -1,15 +1,9 @@
-import getTimeParts, { Unit, TimePartsType } from '../helpers/getTimeParts';
+import getTimeParts from '../helpers/getTimeParts';
 
 import TimerState from './TimerState';
+import { TimeParts, Checkpoint, Direction, TimerValue, Unit } from 'src/types';
 
-export interface Checkpoint {
-  time: number;
-  callback: () => any;
-}
-
-export type Direction = 'forward' | 'backward';
-
-export default class Timer {
+export class TimerModel {
   private initialTime: number;
   private time: number;
   private direction: Direction;
@@ -17,23 +11,23 @@ export default class Timer {
   private lastUnit: Unit;
   private checkpoints: Checkpoint[];
   private innerState: TimerState;
-  private onChange: (timeParts?: TimePartsType) => any;
+  private onChange: (timeParts?: TimeParts) => void;
   private timerId: number;
 
   constructor({
-    initialTime = 0,
-    direction = 'forward',
-    timeToUpdate = 1000,
-    lastUnit = 'd',
-    checkpoints = [],
-    onChange = () => {},
+    initialTime,
+    direction,
+    timeToUpdate,
+    lastUnit,
+    checkpoints,
+    onChange,
   }: {
     initialTime: number;
     direction: Direction;
     timeToUpdate: number;
     lastUnit: Unit;
     checkpoints: Checkpoint[];
-    onChange: () => any;
+    onChange: (timerValue?: TimerValue) => void;
   }) {
     this.initialTime = initialTime;
     this.time = initialTime;
@@ -59,7 +53,7 @@ export default class Timer {
     return getTimeParts(time, this.lastUnit);
   }
 
-  public setTime(time) {
+  public setTime(time: number) {
     this.time = time;
   }
 
