@@ -7,7 +7,7 @@ import {
   TimerValue,
 } from '../types';
 import { TimerModel } from '../lib/models/TimerModel';
-import getTimeParts from "src/lib/helpers/getTimeParts";
+import getTimeParts from "../lib/helpers/getTimeParts";
 
 interface TimerOptions {
   initialTime: number;
