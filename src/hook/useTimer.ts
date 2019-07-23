@@ -7,6 +7,7 @@ import {
   TimerValue,
 } from '../types';
 import { TimerModel } from '../lib/models/TimerModel';
+import getTimeParts from "src/lib/helpers/getTimeParts";
 
 interface TimerOptions {
   initialTime: number;
@@ -36,7 +37,10 @@ export function useTimer({
   onStop,
   onReset,
 }: Partial<TimerOptions> = {}) {
-  const [timerValues, setTimerValues] = useState<TimerValue>();
+  const [timerValues, setTimerValues] = useState<TimerValue>({
+    ...getTimeParts(initialTime, lastUnit),
+    state: 'INITED',
+  });
 
   const timer = useMemo(
     () =>
@@ -97,6 +101,10 @@ export function useTimer({
       if (startImmediately) {
         start();
       }
+
+      return () => {
+        stop();
+      };
     },
     [],
   );
