@@ -5,6 +5,7 @@ import { TimeParts, Checkpoint, Direction, TimerValue, Unit } from '../../types'
 
 export class TimerModel {
   private initialTime: number;
+  private internalTime: number;
   private time: number;
   private direction: Direction;
   private timeToUpdate: number;
@@ -29,6 +30,7 @@ export class TimerModel {
     checkpoints: Checkpoint[];
     onChange: (timerValue?: TimerValue) => void;
   }) {
+    this.internalTime = performance.now();
     this.initialTime = initialTime;
     this.time = initialTime;
     this.direction = direction;
@@ -54,6 +56,7 @@ export class TimerModel {
   }
 
   public setTime(time: number) {
+    this.internalTime = performance.now();
     this.time = time;
   }
 
@@ -61,12 +64,12 @@ export class TimerModel {
     return this.time;
   }
 
-  public setDirection(direction) {
-    this.direction = direction;
-  }
-
   public setLastUnit(lastUnit: Unit) {
     this.lastUnit = lastUnit;
+  }
+
+  public setDirection(direction) {
+    this.direction = direction;
   }
 
   public setCheckpoints(checkpoints) {
@@ -104,6 +107,12 @@ export class TimerModel {
   }
 
   private setTimerInterval(callImmediately = false) {
+    if (this.timerId) {
+      clearInterval(this.timerId);
+    }
+
+    this.internalTime = performance.now();
+
     const repeatedFunc = () => {
       const oldTime = this.time;
       const updatedTime = this.computeTime();
@@ -130,13 +139,19 @@ export class TimerModel {
 
   private computeTime() {
     if (this.innerState.isPlaying()) {
+      const currentInternalTime = performance.now();
+      const delta = Math.abs(currentInternalTime - this.internalTime);
+
       switch (this.direction) {
         case 'forward':
-          this.time = this.time + this.timeToUpdate;
+          this.time = this.time + delta;
+          this.internalTime = currentInternalTime;
+
           return this.time;
 
         case 'backward': {
-          this.time = this.time - this.timeToUpdate;
+          this.time = this.time - delta;
+          this.internalTime = currentInternalTime;
 
           if (this.time < 0) {
             this.stop();
