@@ -66,6 +66,11 @@ export function useTimer({
     [timer],
   );
 
+  const setLastUnit = useCallback(
+    (lastUnit: Unit) => timer.setLastUnit(lastUnit),
+    [timer],
+  );
+
   const setCheckpoints = useCallback(
     (checkpoints: Checkpoints) => timer.setCheckpoints(checkpoints),
     [timer],
@@ -88,11 +93,12 @@ export function useTimer({
       getTime,
       getTimerState,
       setDirection,
+      setLastUnit,
       setCheckpoints,
     }),
     [
       start, stop, pause, reset, resume,
-      setTime, getTime, getTimerState, setDirection, setCheckpoints,
+      setTime, getTime, getTimerState, setDirection, setLastUnit, setCheckpoints,
     ],
   );
 

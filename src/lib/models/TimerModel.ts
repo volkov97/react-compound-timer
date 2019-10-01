@@ -65,6 +65,10 @@ export class TimerModel {
     this.direction = direction;
   }
 
+  public setLastUnit(lastUnit: Unit) {
+    this.lastUnit = lastUnit;
+  }
+
   public setCheckpoints(checkpoints) {
     this.checkpoints = checkpoints;
   }
