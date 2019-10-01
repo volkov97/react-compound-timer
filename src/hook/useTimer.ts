@@ -38,7 +38,7 @@ export function useTimer({
   onReset,
 }: Partial<TimerOptions> = {}) {
   const [timerValues, setTimerValues] = useState<TimerValue>({
-    ...getTimeParts(initialTime, lastUnit),
+    ...getTimeParts(initialTime < 0 ? 0 : initialTime, lastUnit),
     state: 'INITED',
   });
 

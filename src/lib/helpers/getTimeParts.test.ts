@@ -4,6 +4,7 @@ import getTimeParts from './getTimeParts';
 
 describe('#getTimeParts', () => {
   [
+    [0, 'h', { h: 0, m: 0, s: 0, ms: 0 }],
     [30, 'ms', { ms: 30 }],
     [1030, 'ms', { ms: 1030 }],
     [1030, 's', { s: 1, ms: 30 }],
