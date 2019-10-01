@@ -65,7 +65,9 @@ export class TimerModel {
   }
 
   public setLastUnit(lastUnit: Unit) {
+    this.pause();
     this.lastUnit = lastUnit;
+    this.resume(true);
   }
 
   public setTimeToUpdate(interval: number) {
@@ -88,9 +90,9 @@ export class TimerModel {
     }
   }
 
-  public resume() {
+  public resume(callImmediately = false) {
     if (!this.innerState.isStopped() && this.innerState.setPlaying()) {
-      this.setTimerInterval();
+      this.setTimerInterval(callImmediately);
     }
   }
 
