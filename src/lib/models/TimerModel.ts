@@ -68,6 +68,12 @@ export class TimerModel {
     this.lastUnit = lastUnit;
   }
 
+  public setTimeToUpdate(interval: number) {
+    this.pause();
+    this.timeToUpdate = interval;
+    this.resume();
+  }
+
   public setDirection(direction) {
     this.direction = direction;
   }

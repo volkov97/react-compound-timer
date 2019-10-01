@@ -76,6 +76,8 @@ export function useTimer({
     [timer],
   );
 
+  const setTimeToUpdate = useCallback((interval: number) => timer.setTimeToUpdate(interval), [timer]);
+
   const start = useCallback(() => { timer.start(); onStart && onStart(); }, [timer, onStart]);
   const stop = useCallback(() => { timer.stop(); onStop && onStop(); }, [timer, onStop]);
   const pause = useCallback(() => { timer.pause(); onPause && onPause(); }, [timer, onPause]);
@@ -94,11 +96,12 @@ export function useTimer({
       getTimerState,
       setDirection,
       setLastUnit,
+      setTimeToUpdate,
       setCheckpoints,
     }),
     [
       start, stop, pause, reset, resume,
-      setTime, getTime, getTimerState, setDirection, setLastUnit, setCheckpoints,
+      setTime, getTime, getTimerState, setDirection, setLastUnit, setTimeToUpdate, setCheckpoints,
     ],
   );
 
