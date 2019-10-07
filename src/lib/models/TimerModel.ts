@@ -65,15 +65,23 @@ export class TimerModel {
   }
 
   public setLastUnit(lastUnit: Unit) {
-    this.pause();
-    this.lastUnit = lastUnit;
-    this.resume(true);
+    if (this.innerState.isPlaying()) {
+      this.pause();
+      this.lastUnit = lastUnit;
+      this.resume(true);
+    } else {
+      this.lastUnit = lastUnit;
+    }
   }
 
   public setTimeToUpdate(interval: number) {
-    this.pause();
-    this.timeToUpdate = interval;
-    this.resume();
+    if (this.innerState.isPlaying()) {
+      this.pause();
+      this.timeToUpdate = interval;
+      this.resume();
+    } else {
+      this.timeToUpdate = interval;
+    }
   }
 
   public setDirection(direction) {
