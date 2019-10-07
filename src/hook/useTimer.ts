@@ -82,7 +82,7 @@ export function useTimer({
   const stop = useCallback(() => { timer.stop(); onStop && onStop(); }, [timer, onStop]);
   const pause = useCallback(() => { timer.pause(); onPause && onPause(); }, [timer, onPause]);
   const reset = useCallback(() => { timer.reset(); onReset && onReset(); }, [timer, onReset]);
-  const resume = useCallback(() => { timer.reset(); onResume && onResume(); }, [timer, onResume]);
+  const resume = useCallback(() => { timer.resume(); onResume && onResume(); }, [timer, onResume]);
 
   const controls = useMemo(
     () => ({
