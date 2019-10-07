@@ -58,6 +58,8 @@ export class TimerModel {
   public setTime(time: number) {
     this.internalTime = performance.now();
     this.time = time;
+
+    this.onChange(this.getTimeParts(this.time));
   }
 
   public getTime() {
