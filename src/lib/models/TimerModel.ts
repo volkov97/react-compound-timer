@@ -1,4 +1,5 @@
 import getTimeParts from '../helpers/getTimeParts';
+import now from '../helpers/now';
 
 import TimerState from './TimerState';
 import { TimeParts, Checkpoint, Direction, TimerValue, Unit } from '../../types';
@@ -30,7 +31,7 @@ export class TimerModel {
     checkpoints: Checkpoint[];
     onChange: (timerValue?: TimerValue) => void;
   }) {
-    this.internalTime = performance.now();
+    this.internalTime = now();
     this.initialTime = initialTime;
     this.time = initialTime;
     this.direction = direction;
@@ -56,7 +57,7 @@ export class TimerModel {
   }
 
   public setTime(time: number) {
-    this.internalTime = performance.now();
+    this.internalTime = now();
     this.initialTime = time;
     this.time = this.initialTime;
 
@@ -130,7 +131,7 @@ export class TimerModel {
       clearInterval(this.timerId);
     }
 
-    this.internalTime = performance.now();
+    this.internalTime = now();
 
     const repeatedFunc = () => {
       const oldTime = this.time;
@@ -158,7 +159,7 @@ export class TimerModel {
 
   private computeTime() {
     if (this.innerState.isPlaying()) {
-      const currentInternalTime = performance.now();
+      const currentInternalTime = now();
       const delta = Math.abs(currentInternalTime - this.internalTime);
 
       switch (this.direction) {
