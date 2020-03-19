@@ -1,6 +1,6 @@
 # react-compound-timer
 
-Timer compound component for react to make building timers less painfull.
+Timer compound component for react and react-native to make building timers less painfull.
 It incapsulates all timer logic - you should only think about rendering!
 
 [See Working Examples](https://volkov97.github.io/react-compound-timer/)
@@ -194,4 +194,36 @@ Each object contains time and callback, that will be fired, when timer intersect
         </React.Fragment>
     )}
 </Timer>
+```
+
+## React Native
+Timer compound component also works for react-native applications. All you have to do is wrap the elements in a <Text> tag from react-native.
+
+### Countdown example with milliseconds
+```jsx
+import { View, Text } from 'react-native'
+import Timer from 'react-compound-timer'
+
+<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <Timer
+        initialTime={60 * 1000}
+        direction="backward"
+        timeToUpdate={10}
+        checkpoints={[
+            {
+                time: 0,
+                callback: () => alert('countdown finished'),
+            },
+        ]}
+    >
+        <Text style={{ fontFamily: 'Helvetica Neue' }}>
+            <Text style={{ fontSize: 32 }}>
+                <Timer.Seconds />
+            </Text>
+            <Text style={{ fontSize: 12 }}>
+                <Timer.Milliseconds />
+            </Text>
+        </Text>
+    </Timer>
+</View>
 ```
