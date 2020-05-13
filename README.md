@@ -112,11 +112,11 @@ Write your own hooks on timer actions.
 <Timer
     initialTime={55000}
     startImmediately={false}
-    onStart={() => console.log('onStart hook')}
-    onResume={() => console.log('onResume hook')}
-    onPause={() => console.log('onPause hook')}
-    onStop={() => console.log('onStop hook')}
-    onReset={() => console.log('onReset hook')}
+    onStart={(time) => console.log('onStart hook', time)}
+    onResume={(time) => console.log('onResume hook', time)}
+    onPause={(time) => console.log('onPause hook', time)}
+    onStop={(time) => console.log('onStop hook', time)}
+    onReset={(time) => console.log('onReset hook', time)}
 >
     {({ start, resume, pause, stop, reset, timerState }) => (
         <React.Fragment>
