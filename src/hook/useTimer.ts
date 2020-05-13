@@ -17,11 +17,11 @@ interface TimerOptions {
   lastUnit: Unit;
   checkpoints: Checkpoints;
   formatValue: (value: number) => string;
-  onStart: () => void;
-  onResume: () => void;
-  onPause: () => void;
-  onStop: () => void;
-  onReset: () => void;
+  onStart: (value?: number) => void;
+  onResume: (value?: number) => void;
+  onPause: (value?: number) => void;
+  onStop: (value?: number) => void;
+  onReset: (value?: number) => void;
 }
 
 export function useTimer({

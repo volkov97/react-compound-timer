@@ -67,15 +67,15 @@ interface TimerProps {
   /** Function to format all values */
   formatValue?: (value: number) => string;
   /** Function that will be called on timer start */
-  onStart?: () => any;
+  onStart?: (value: number) => any;
   /** Function that will be called on timer resume */
-  onResume?: () => any;
+  onResume?: (value: number) => any;
   /** Function that will be called on timer pause */
-  onPause?: () => any;
+  onPause?: (value: number) => any;
   /** Function that will be called on timer stop */
-  onStop?: () => any;
+  onStop?: (value: number) => any;
   /** Function that will be called on timer reset */
-  onReset?: () => any;
+  onReset?: (value: number) => any;
   /** Last unit will accumulate time, for example, 26 hours or 90 seconds */
   lastUnit?: 'ms' | 's' | 'm' | 'h' | 'd';
   /** Time checkpoints with callback functions */
@@ -233,31 +233,31 @@ class Timer extends React.PureComponent<TimerProps, TimerState> {
   private start() {
     this.timer.start();
 
-    this.props.onStart();
+    this.props.onStart(this.timer.getTime());
   }
 
   private stop() {
     this.timer.stop();
 
-    this.props.onStop();
+    this.props.onStop(this.timer.getTime());
   }
 
   private pause() {
     this.timer.pause();
 
-    this.props.onPause();
+    this.props.onPause(this.timer.getTime());
   }
 
   private reset() {
     this.timer.reset();
 
-    this.props.onReset();
+    this.props.onReset(this.timer.getTime());
   }
 
   private resume() {
     this.timer.resume();
 
-    this.props.onResume();
+    this.props.onResume(this.timer.getTime());
   }
 }
 
