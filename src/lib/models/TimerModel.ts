@@ -68,6 +68,11 @@ export class TimerModel {
     return this.time;
   }
 
+  public getElapsedTime() {
+    if (this.direction === 'backward') return this.initialTime - this.time;
+    return this.time;
+  }
+
   public setLastUnit(lastUnit: Unit) {
     if (this.innerState.isPlaying()) {
       this.pause();
