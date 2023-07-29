@@ -2,7 +2,7 @@ export type Unit = 'ms' | 's' | 'm' | 'h' | 'd';
 
 export interface Checkpoint {
   time: number;
-  callback: () => any;
+  callback: () => void;
 }
 
 export type Checkpoints = Checkpoint[];
