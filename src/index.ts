@@ -1,11 +1,11 @@
 import { getTimeParts } from './helpers/getTimeParts';
-import { useTimer } from './hook/useTimer';
-import { createTimer } from './instances/timer';
+import { useTimeModel } from './hook/useTimeModel';
+import { createTimeModel } from './instances/timeModel';
 
 export * from './types';
 
 export {
-  createTimer,
-  useTimer,
+  createTimeModel,
+  useTimeModel,
   getTimeParts,
 };

@@ -1,24 +1,24 @@
-import { TimerStateValues } from "../types";
+import { TimeModelStateValues } from "../types";
 
 export const INITED = "INITED";
 export const PLAYING = "PLAYING";
 export const PAUSED = "PAUSED";
 export const STOPPED = "STOPPED";
 
-export class TimerState {
-  private onStateChange: (obj: { state: TimerStateValues }) => void;
-  private state: TimerStateValues = INITED;
+export class TimeModelState {
+  private onStateChange: (obj: { state: TimeModelStateValues }) => void;
+  private state: TimeModelStateValues = INITED;
 
   constructor(
-    initialStatus: TimerStateValues = INITED,
-    onStateChange: (obj: { state: TimerStateValues }) => void = () => {}
+    initialStatus: TimeModelStateValues = INITED,
+    onStateChange: (obj: { state: TimeModelStateValues }) => void = () => {}
   ) {
     this.state = initialStatus;
     this.onStateChange = onStateChange;
   }
 
   public setOnStateChange(
-    onStateChange: (obj: { state: TimerStateValues }) => void
+    onStateChange: (obj: { state: TimeModelStateValues }) => void
   ) {
     this.onStateChange = onStateChange;
   }

@@ -1,0 +1,23 @@
+.title {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+.description {
+  margin-bottom: 20px;
+}
+
+.content {
+  display: flex;
+  gap: 50px;
+}
+
+.units {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.unit {
+  min-width: 100px;
+}

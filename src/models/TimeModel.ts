@@ -1,10 +1,10 @@
 import { getTimeParts } from "../helpers/getTimeParts";
 import { now } from "../helpers/now";
 
-import { TimerState } from "./TimerState";
+import { TimeModelState } from "./TimeModelState";
 import { TimerValue, Unit, Checkpoints } from "../types";
 
-export interface TimerModelOptions {
+export interface TimeModelOptions {
   initialTime: number;
   startImmediately: boolean;
   direction: "forward" | "backward";
@@ -14,7 +14,7 @@ export interface TimerModelOptions {
   checkpoints: Checkpoints;
 }
 
-export interface TimerEvents {
+export interface TimeModelEvents {
   onChange?: (timerValue?: TimerValue) => void;
   onStart?: () => void;
   onResume?: () => void;
@@ -23,34 +23,38 @@ export interface TimerEvents {
   onReset?: () => void;
 }
 
-export class TimerModel {
-  private options: TimerModelOptions;
-  public events: TimerEvents;
+export class TimeModel {
+  private options: TimeModelOptions;
+  public events: TimeModelEvents;
 
   private internalTime: number;
   private time: number;
-  private innerState: TimerState;
+  private innerState: TimeModelState;
   private timerId: number;
 
-  constructor(options: TimerModelOptions, events: TimerEvents = {}) {
+  constructor(options: TimeModelOptions, events: TimeModelEvents = {}) {
     this.internalTime = now();
     this.options = options;
     this.events = events;
     this.time = options.initialTime;
-    this.innerState = new TimerState("INITED", () => {
+    this.innerState = new TimeModelState("INITED", () => {
       if (this.events.onChange) {
-        this.events.onChange(this.value)
+        this.events.onChange(this.value);
       }
     });
 
     this.timerId = null;
+
+    if (this.options.startImmediately) {
+      this.start();
+    }
   }
 
   get value() {
     return this.getTimerValue(this.computeTime());
   }
 
-  get currentOptions(): TimerModelOptions {
+  get currentOptions(): TimeModelOptions {
     return JSON.parse(JSON.stringify(this.options));
   }
 
@@ -58,7 +62,7 @@ export class TimerModel {
    * Change options methods
    **/
 
-  public changeTime(time: number) {
+  public changeTime = (time: number) => {
     this.internalTime = now();
     this.options.initialTime = time;
     this.time = this.options.initialTime;
@@ -66,9 +70,9 @@ export class TimerModel {
     if (this.events.onChange) {
       this.events.onChange(this.getTimerValue(this.time));
     }
-  }
+  };
 
-  public changeLastUnit(lastUnit: Unit) {
+  public changeLastUnit = (lastUnit: Unit) => {
     if (this.innerState.isPlaying()) {
       this.pause();
       this.options.lastUnit = lastUnit;
@@ -76,9 +80,9 @@ export class TimerModel {
     } else {
       this.options.lastUnit = lastUnit;
     }
-  }
+  };
 
-  public changeRoundUnit(roundUnit: Unit) {
+  public changeRoundUnit = (roundUnit: Unit) => {
     if (this.innerState.isPlaying()) {
       this.pause();
       this.options.roundUnit = roundUnit;
@@ -86,9 +90,9 @@ export class TimerModel {
     } else {
       this.options.roundUnit = roundUnit;
     }
-  }
+  };
 
-  public changeTimeToUpdate(interval: number) {
+  public changeTimeToUpdate = (interval: number) => {
     if (this.innerState.isPlaying()) {
       this.pause();
       this.options.timeToUpdate = interval;
@@ -96,21 +100,21 @@ export class TimerModel {
     } else {
       this.options.timeToUpdate = interval;
     }
-  }
+  };
 
-  public changeDirection(direction) {
+  public changeDirection = (direction) => {
     this.options.direction = direction;
-  }
+  };
 
-  public changeCheckpoints(checkpoints) {
+  public changeCheckpoints = (checkpoints) => {
     this.options.checkpoints = checkpoints;
-  }
+  };
 
   /**
    * Timer controls methods
    **/
 
-  public start() {
+  public start = () => {
     if (this.innerState.setPlaying()) {
       this.setTimerInterval(true);
 
@@ -118,9 +122,9 @@ export class TimerModel {
         this.events.onStart();
       }
     }
-  }
+  };
 
-  public resume(callImmediately = false) {
+  public resume = (callImmediately = false) => {
     if (this.innerState.isPaused() && this.innerState.setPlaying()) {
       this.setTimerInterval(callImmediately);
 
@@ -128,9 +132,9 @@ export class TimerModel {
         this.events.onResume();
       }
     }
-  }
+  };
 
-  public pause() {
+  public pause = () => {
     if (this.innerState.setPaused()) {
       clearInterval(this.timerId);
 
@@ -138,9 +142,9 @@ export class TimerModel {
         this.events.onPause();
       }
     }
-  }
+  };
 
-  public stop() {
+  public stop = () => {
     if (this.innerState.setStopped()) {
       clearInterval(this.timerId);
 
@@ -148,9 +152,9 @@ export class TimerModel {
         this.events.onStop();
       }
     }
-  }
+  };
 
-  public reset() {
+  public reset = () => {
     this.time = this.options.initialTime;
 
     if (this.events.onChange) {
@@ -160,13 +164,13 @@ export class TimerModel {
     if (this.events.onReset) {
       this.events.onReset();
     }
-  }
+  };
 
   /**
    * Private methods
    **/
 
-  private setTimerInterval(callImmediately = false) {
+  private setTimerInterval = (callImmediately = false) => {
     if (this.timerId) {
       clearInterval(this.timerId);
     }
@@ -200,16 +204,16 @@ export class TimerModel {
     }
 
     this.timerId = window.setInterval(repeatedFunc, this.options.timeToUpdate);
-  }
+  };
 
-  private getTimerValue(time: number): TimerValue {
+  private getTimerValue = (time: number): TimerValue => {
     return {
       ...getTimeParts(time, this.options.lastUnit, this.options.roundUnit),
       state: this.innerState.getState(),
     };
-  }
+  };
 
-  private computeTime() {
+  private computeTime = () => {
     if (this.innerState.isPlaying()) {
       const currentInternalTime = now();
       const delta = Math.abs(currentInternalTime - this.internalTime);
@@ -239,6 +243,6 @@ export class TimerModel {
       }
     }
 
-    return this.time;
-  }
+    return this.time < 0 ? 0 : this.time;
+  };
 }

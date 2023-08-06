@@ -15,23 +15,8 @@ export interface TimeParts {
   d: number;
 }
 
-export type TimerStateValues = 'INITED' | 'PLAYING' | 'PAUSED' | 'STOPPED';
+export type TimeModelStateValues = 'INITED' | 'PLAYING' | 'PAUSED' | 'STOPPED';
 
 export type Direction = 'forward' | 'backward';
 
-export type TimerValue = TimeParts & { state: TimerStateValues };
-
-export interface TimerControls {
-  start: () => void;
-  stop: () => void;
-  pause: () => void;
-  reset: () => void;
-  resume: () => void;
-  setTime: (time: number) => void;
-  getTime: () => number;
-  getTimerState: () => TimerStateValues;
-  setDirection: (direction: Direction) => void;
-  setLastUnit: (lastUnit: Unit) => void;
-  setTimeToUpdate: (interval: number) => void;
-  setCheckpoints: (checkpoints: Checkpoint[]) => void;
-}
+export type TimerValue = TimeParts & { state: TimeModelStateValues };
