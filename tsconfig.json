@@ -6,11 +6,10 @@
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "baseUrl": ".",
     "lib": ["dom", "es2015", "es2016", "es2017"],
     "types": ["jest"],
-    "declaration": true,
     "outDir": "./build",
     "paths": {
       "src/*": ["src/*"]

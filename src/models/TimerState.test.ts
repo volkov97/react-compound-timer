@@ -118,7 +118,7 @@ describe('#TimerState', () => {
 
   it('should call onChange handler with INITED timer state on setInited', () => {
     const mockCallback = jest.fn(({ state }) => state);
-    const state = new TimerState(mockCallback);
+    const state = new TimerState('INITED', mockCallback);
 
     state.setPlaying();
     state.setInited();
@@ -128,7 +128,7 @@ describe('#TimerState', () => {
 
   it('should call onChange handler with PLAYING timer state on setPlaying', () => {
     const mockCallback = jest.fn(({ state }) => state);
-    const state = new TimerState(mockCallback);
+    const state = new TimerState('INITED', mockCallback);
 
     state.setPlaying();
 
@@ -137,7 +137,7 @@ describe('#TimerState', () => {
 
   it('should call onChange handler with PAUSED timer state on setPaused', () => {
     const mockCallback = jest.fn(({ state }) => state);
-    const state = new TimerState(mockCallback);
+    const state = new TimerState('INITED', mockCallback);
 
     state.setPlaying();
     state.setPaused();
@@ -147,7 +147,7 @@ describe('#TimerState', () => {
 
   it('should call onChange handler with STOPPED timer state on setStopped', () => {
     const mockCallback = jest.fn(({ state }) => state);
-    const state = new TimerState(mockCallback);
+    const state = new TimerState('INITED', mockCallback);
 
     state.setPlaying();
     state.setStopped();

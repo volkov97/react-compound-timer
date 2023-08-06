@@ -1,7 +1,7 @@
 {
   "name": "react-compound-timer",
   "version": "1.1.16",
-  "description": "Timer compound react component",
+  "description": "React hooks for timers, countdowns, and stopwatches.",
   "main": "build",
   "types": "build",
   "keywords": [
@@ -9,33 +9,36 @@
     "timer",
     "countdown",
     "compound",
-    "stopwatch"
+    "stopwatch",
+    "hooks"
   ],
   "homepage": "https://github.com/volkov97/react-compound-timer",
   "scripts": {
+    "build": "tsc",
+    "check": "npm run typeсheck && npm run lint && npm run test",
     "test": "jest",
-    "transpile": "tsc",
     "lint": "eslint .",
     "typeсheck": "tsc --noEmit",
-    "prepublishOnly": "npm run transpile"
+    "prepublishOnly": "npm run check && npm run build"
   },
   "author": "German Volkov <volkov.german.1997@gmail.com> (https://volkov97.com)",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "29.5.3",
-    "@types/react": "16.8.14",
-    "@types/react-dom": "16.8.4",
+    "@types/react": "18.2.17",
+    "@types/react-dom": "18.2.7",
     "@typescript-eslint/eslint-plugin": "6.2.0",
     "@typescript-eslint/parser": "6.2.0",
     "eslint": "8.46.0",
     "eslint-plugin-react": "7.33.0",
     "jest": "29.6.2",
     "jest-environment-jsdom": "29.6.2",
-    "react-dom": "16.8.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
     "ts-jest": "29.1.1",
     "typescript": "5.1.6"
   },
   "peerDependencies": {
-    "react": "16.8.6"
+    "react": "^16.8.0 || ^17 || ^18"
   }
 }

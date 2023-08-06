@@ -1,46 +1,74 @@
-### Forward Count
+### Forward Timer
 
-Just render a simple timer and start counting forward from 0. Use compound components to render time units.
-You can see all avaliable time units in this example.
+Just start a simple timer and count forward from 0.
 
 ```jsx
-<Timer>
-	<Timer.Seconds />
-</Timer>
+const ForwardTimer = () => {
+  const { value } = useTimer();
+
+  return (
+    <div>
+      <div>{value.d} days</div>
+      <div>{value.h} hours</div>
+      <div>{value.m} minutes</div>
+      <div>{value.s} seconds</div>
+      <div>{value.ms} milliseconds</div>
+    </div>
+  );
+};
 ```
 
-### Forward Count with formatting
+### Backward Timer
 
-You can format all values by passing `formatValue` prop to Timer component. If you want to make value it's own formatting - just pass `formatValue` to appropriate component, like in this example.
+The same simple timer, but counting backward from 50 seconds.
 
 ```jsx
-<Timer formatValue={(value) => `${(value < 10 ? `0${value}` : value)} units `}>
-    <Timer.Hours formatValue={value => `${value} hours. `} />
-    <Timer.Minutes />
-    <Timer.Seconds formatValue={value => `${value} s. `} />
-    <Timer.Milliseconds />
-</Timer>
+const BackwardTimer = () => {
+  const { value } = useTimer({
+    initialTime: 50000,
+    direction: 'backward',
+  });
+
+  return (
+    <div>
+      <div>{value.d} days</div>
+      <div>{value.h} hours</div>
+      <div>{value.m} minutes</div>
+      <div>{value.s} seconds</div>
+      <div>{value.ms} milliseconds</div>
+    </div>
+  );
+};
 ```
 
-### Backward Count
+### No autoplay
 
-The same simple timer, but counting backward.
+You can just render a timer, and then start it only by using method **start**.
 
 ```jsx
-<Timer
-    initialTime={55000}
-    direction="backward"
->
-    {() => (
-        <React.Fragment>
-            <Timer.Days /> days
-            <Timer.Hours /> hours
-            <Timer.Minutes /> minutes
-            <Timer.Seconds /> seconds
-            <Timer.Milliseconds /> milliseconds
-        </React.Fragment>
-    )}
-</Timer>
+const NoAutoplayTimer = () => {
+  const { value, controls } = useTimer({
+    initialTime: 50000,
+    direction: 'backward',
+    startImmediately: false,
+  });
+
+  useEffect(() => {
+    setTimeout(() => {
+        controls.start();
+    }, 5000);
+  }, []);
+
+  return (
+    <div>
+      <div>{value.d} days</div>
+      <div>{value.h} hours</div>
+      <div>{value.m} minutes</div>
+      <div>{value.s} seconds</div>
+      <div>{value.ms} milliseconds</div>
+    </div>
+  );
+};
 ```
 
 ### Controls
@@ -74,74 +102,7 @@ Get action functions from props and use them to control your timer.
 </Timer>
 ```
 
-### No autoplay
 
-You can just render a timer, and then start it only by using action function 'start' from props.
-
-```jsx
-<Timer
-    initialTime={55000}
-    startImmediately={false}
->
-    {({ start, resume, pause, stop, reset, timerState }) => (
-        <React.Fragment>
-            <div>
-                <Timer.Days /> days
-                <Timer.Hours /> hours
-                <Timer.Minutes /> minutes
-                <Timer.Seconds /> seconds
-                <Timer.Milliseconds /> milliseconds
-            </div>
-            <div>{timerState}</div>
-            <br />
-            <div>
-                <button onClick={start}>Start</button>
-                <button onClick={pause}>Pause</button>
-                <button onClick={resume}>Resume</button>
-                <button onClick={stop}>Stop</button>
-                <button onClick={reset}>Reset</button>
-            </div>
-        </React.Fragment>
-    )}
-</Timer>
-```
-
-### With hooks
-
-Write your own hooks on timer actions.
-
-```jsx
-<Timer
-    initialTime={55000}
-    startImmediately={false}
-    onStart={() => console.log('onStart hook')}
-    onResume={() => console.log('onResume hook')}
-    onPause={() => console.log('onPause hook')}
-    onStop={() => console.log('onStop hook')}
-    onReset={() => console.log('onReset hook')}
->
-    {({ start, resume, pause, stop, reset, getTimerState, getTime }) => (
-        <React.Fragment>
-            <div>
-                <Timer.Days /> days
-                <Timer.Hours /> hours
-                <Timer.Minutes /> minutes
-                <Timer.Seconds /> seconds
-                <Timer.Milliseconds /> milliseconds
-            </div>
-            <div>{getTimerState()} {getTime()}</div>
-            <br />
-            <div>
-                <button onClick={start}>Start</button>
-                <button onClick={pause}>Pause</button>
-                <button onClick={resume}>Resume</button>
-                <button onClick={stop}>Stop</button>
-                <button onClick={reset}>Reset</button>
-            </div>
-        </React.Fragment>
-    )}
-</Timer>
-```
 
 ### Last Unit Property
 

@@ -1,4 +1,4 @@
-import { TimerStateValues } from "../../types";
+import { TimerStateValues } from "../types";
 
 export const INITED = "INITED";
 export const PLAYING = "PLAYING";
@@ -6,14 +6,21 @@ export const PAUSED = "PAUSED";
 export const STOPPED = "STOPPED";
 
 export default class TimerState {
-  private onChange: () => void;
+  private onStateChange: (obj: { state: TimerStateValues }) => void;
   private state: TimerStateValues = INITED;
 
   constructor(
-    onChangeStatus: (obj: { state: TimerStateValues }) => void = () => {}
+    initialStatus: TimerStateValues = INITED,
+    onStateChange: (obj: { state: TimerStateValues }) => void = () => {}
   ) {
-    this.onChange = () => onChangeStatus({ state: this.state });
-    this.state = INITED;
+    this.state = initialStatus;
+    this.onStateChange = onStateChange;
+  }
+
+  public setOnStateChange(
+    onStateChange: (obj: { state: TimerStateValues }) => void
+  ) {
+    this.onStateChange = onStateChange;
   }
 
   public getState() {
@@ -82,5 +89,9 @@ export default class TimerState {
 
   public isStopped() {
     return this.state === STOPPED;
+  }
+
+  private onChange() {
+    this.onStateChange({ state: this.state });
   }
 }

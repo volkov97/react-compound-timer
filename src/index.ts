@@ -1,12 +1,11 @@
-import Timer from './components/Timer/Timer';
-import getTimeParts from './lib/helpers/getTimeParts';
+import { getTimeParts } from './helpers/getTimeParts';
 import { useTimer } from './hook/useTimer';
+import { createTimer } from './instances/timer';
 
 export * from './types';
 
 export {
-  getTimeParts,
+  createTimer,
   useTimer,
+  getTimeParts,
 };
-
-export default Timer;
