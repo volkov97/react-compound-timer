@@ -1,4 +1,4 @@
-import TimerState, { INITED, PLAYING, PAUSED, STOPPED } from './TimerState';
+import { TimerState, INITED, PLAYING, PAUSED, STOPPED } from './TimerState';
 
 describe('#TimerState', () => {
   it('should set INITED state in constructor', () => {

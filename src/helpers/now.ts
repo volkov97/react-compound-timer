@@ -1,4 +1,4 @@
-export default function now(): number {
+export function now(): number {
   if (typeof window === 'undefined' || !('performance' in window)) {
     return Date.now();
   }

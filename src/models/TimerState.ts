@@ -5,7 +5,7 @@ export const PLAYING = "PLAYING";
 export const PAUSED = "PAUSED";
 export const STOPPED = "STOPPED";
 
-export default class TimerState {
+export class TimerState {
   private onStateChange: (obj: { state: TimerStateValues }) => void;
   private state: TimerStateValues = INITED;
 

@@ -1,8 +1,8 @@
-import { getTimeParts } from '../helpers/getTimeParts';
-import now from '../helpers/now';
+import { getTimeParts } from "../helpers/getTimeParts";
+import { now } from "../helpers/now";
 
-import TimerState from './TimerState';
-import { TimerValue, Unit, Checkpoints } from '../types';
+import { TimerState } from "./TimerState";
+import { TimerValue, Unit, Checkpoints } from "../types";
 
 export interface TimerModelOptions {
   initialTime: number;
@@ -28,22 +28,30 @@ export class TimerModel {
   public events: TimerEvents;
 
   private internalTime: number;
-  public time: number;
+  private time: number;
   private innerState: TimerState;
   private timerId: number;
 
-  constructor(options: TimerModelOptions, events: TimerEvents) {
+  constructor(options: TimerModelOptions, events: TimerEvents = {}) {
     this.internalTime = now();
     this.options = options;
     this.events = events;
     this.time = options.initialTime;
-    this.innerState = new TimerState('INITED', events.onChange);
+    this.innerState = new TimerState("INITED", () => {
+      if (this.events.onChange) {
+        this.events.onChange(this.value)
+      }
+    });
 
     this.timerId = null;
   }
 
   get value() {
     return this.getTimerValue(this.computeTime());
+  }
+
+  get currentOptions(): TimerModelOptions {
+    return JSON.parse(JSON.stringify(this.options));
   }
 
   /**
@@ -55,7 +63,7 @@ export class TimerModel {
     this.options.initialTime = time;
     this.time = this.options.initialTime;
 
-    if (this.events.onChange) { 
+    if (this.events.onChange) {
       this.events.onChange(this.getTimerValue(this.time));
     }
   }
@@ -67,6 +75,16 @@ export class TimerModel {
       this.resume(true);
     } else {
       this.options.lastUnit = lastUnit;
+    }
+  }
+
+  public changeRoundUnit(roundUnit: Unit) {
+    if (this.innerState.isPlaying()) {
+      this.pause();
+      this.options.roundUnit = roundUnit;
+      this.resume(true);
+    } else {
+      this.options.roundUnit = roundUnit;
     }
   }
 
@@ -103,7 +121,7 @@ export class TimerModel {
   }
 
   public resume(callImmediately = false) {
-    if (!this.innerState.isStopped() && this.innerState.setPlaying()) {
+    if (this.innerState.isPaused() && this.innerState.setPlaying()) {
       this.setTimerInterval(callImmediately);
 
       if (this.events.onResume) {
@@ -135,7 +153,7 @@ export class TimerModel {
   public reset() {
     this.time = this.options.initialTime;
 
-    if (this.events.onChange) { 
+    if (this.events.onChange) {
       this.events.onChange(this.getTimerValue(this.time));
     }
 
@@ -159,16 +177,17 @@ export class TimerModel {
       const oldTime = this.time;
       const updatedTime = this.computeTime();
 
-      if (this.events.onChange) { 
+      if (this.events.onChange) {
         this.events.onChange(this.getTimerValue(updatedTime));
       }
 
       this.options.checkpoints.map(({ time, callback }) => {
         const checkForForward = time > oldTime && time <= updatedTime;
         const checkForBackward = time < oldTime && time >= updatedTime;
-        const checkIntersection = this.options.direction === 'backward' ?
-          checkForBackward :
-          checkForForward;
+        const checkIntersection =
+          this.options.direction === "backward"
+            ? checkForBackward
+            : checkForForward;
 
         if (checkIntersection) {
           callback();
@@ -196,13 +215,13 @@ export class TimerModel {
       const delta = Math.abs(currentInternalTime - this.internalTime);
 
       switch (this.options.direction) {
-        case 'forward':
+        case "forward":
           this.time = this.time + delta;
           this.internalTime = currentInternalTime;
 
           return this.time;
 
-        case 'backward': {
+        case "backward": {
           this.time = this.time - delta;
           this.internalTime = currentInternalTime;
 
