@@ -2,7 +2,7 @@ import { getTimeParts } from "../helpers/getTimeParts";
 import { now } from "../helpers/now";
 
 import { TimeModelState } from "./TimeModelState";
-import { TimerValue, Unit, Checkpoints } from "../types";
+import { TimerValue, Unit, Checkpoints, Direction } from "../types";
 
 export interface TimeModelOptions {
   initialTime: number;
@@ -15,7 +15,7 @@ export interface TimeModelOptions {
 }
 
 export interface TimeModelEvents {
-  onChange?: (timerValue?: TimerValue) => void;
+  onChange?: (timerValue: TimerValue) => void;
   onStart?: () => void;
   onResume?: () => void;
   onPause?: () => void;
@@ -30,7 +30,7 @@ export class TimeModel {
   private internalTime: number;
   private time: number;
   private innerState: TimeModelState;
-  private timerId: number;
+  private timerId: number | null;
 
   constructor(options: TimeModelOptions, events: TimeModelEvents = {}) {
     this.internalTime = now();
@@ -102,11 +102,11 @@ export class TimeModel {
     }
   };
 
-  public changeDirection = (direction) => {
+  public changeDirection = (direction: Direction) => {
     this.options.direction = direction;
   };
 
-  public changeCheckpoints = (checkpoints) => {
+  public changeCheckpoints = (checkpoints: Checkpoints) => {
     this.options.checkpoints = checkpoints;
   };
 
@@ -136,7 +136,9 @@ export class TimeModel {
 
   public pause = () => {
     if (this.innerState.setPaused()) {
-      clearInterval(this.timerId);
+      if (this.timerId) {
+        clearInterval(this.timerId);
+      }
 
       if (this.events.onPause) {
         this.events.onPause();
@@ -146,7 +148,9 @@ export class TimeModel {
 
   public stop = () => {
     if (this.innerState.setStopped()) {
-      clearInterval(this.timerId);
+      if (this.timerId) {
+        clearInterval(this.timerId);
+      }
 
       if (this.events.onStop) {
         this.events.onStop();
