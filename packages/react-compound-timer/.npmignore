@@ -1,3 +1,5 @@
 docs
 node_modules
 demo
+coverage
+src
