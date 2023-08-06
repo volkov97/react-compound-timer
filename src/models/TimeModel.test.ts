@@ -34,7 +34,7 @@ describe("#TimeModel", () => {
       m: 0,
       s: 3,
       ms: 0,
-      state: "INITED",
+      state: "PLAYING",
     });
   });
 
@@ -47,7 +47,7 @@ describe("#TimeModel", () => {
     model.changeTime(259200000);
 
     expect(model.value).toEqual({
-      state: "INITED",
+      state: "PLAYING",
       d: 0,
       h: 0,
       m: 4320,
@@ -65,7 +65,7 @@ describe("#TimeModel", () => {
     model.changeTime(259200000 + 180000);
 
     expect(model.value).toEqual({
-      state: "INITED",
+      state: "PLAYING",
       d: 3,
       h: 0,
       m: 3,
@@ -84,7 +84,7 @@ describe("#TimeModel", () => {
 
     jest.advanceTimersByTime(1000);
 
-    expect(onChange).toHaveBeenCalledTimes(2);
+    expect(onChange).toHaveBeenCalledTimes(4);
     expect(onChange).lastCalledWith({
       d: 0,
       h: 0,
@@ -96,7 +96,7 @@ describe("#TimeModel", () => {
 
     jest.advanceTimersByTime(1500);
 
-    expect(onChange).toHaveBeenCalledTimes(3);
+    expect(onChange).toHaveBeenCalledTimes(5);
     expect(onChange).lastCalledWith({
       d: 0,
       h: 0,
@@ -116,7 +116,7 @@ describe("#TimeModel", () => {
       model.changeTime(3000);
 
       expect(onChange).toHaveBeenCalledWith({
-        state: "INITED",
+        state: "PLAYING",
         d: 0,
         h: 0,
         m: 0,
@@ -149,7 +149,13 @@ describe("#TimeModel", () => {
     it("should not call onPause event when timer not started", () => {
       const onPause = jest.fn();
 
-      const model = new TimeModel(getDefaultTimerOptions(), { onPause });
+      const model = new TimeModel(
+        {
+          ...getDefaultTimerOptions(),
+          startImmediately: false,
+        },
+        { onPause }
+      );
 
       model.pause();
 
@@ -215,7 +221,13 @@ describe("#TimeModel", () => {
     it("should not call onStop event when timer not started", () => {
       const onStop = jest.fn();
 
-      const model = new TimeModel(getDefaultTimerOptions(), { onStop });
+      const model = new TimeModel(
+        {
+          ...getDefaultTimerOptions(),
+          startImmediately: false,
+        },
+        { onStop }
+      );
 
       model.stop();
 
