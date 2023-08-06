@@ -3,19 +3,14 @@ name: CI setup for build pages
 runs:
   using: composite
   steps:
+    - uses: pnpm/action-setup@v2
+      with:
+        version: 8.6.12
     - name: "Install Node.js"
       uses: actions/setup-node@v3
       with:
         node-version: 18.15.0
-    - name: Restore cache
-      id: cache-node-modules
-      uses: actions/cache@v3
-      env:
-        cache-name: cache-node-modules
-      with:
-        path: "**/node_modules"
-        key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-    - if: ${{ steps.cache-node-modules.outputs.cache-hit != 'true' }}
-      name: "Install root dependencies"
-      run: npm ci && cd demo/react && npm ci
+        cache: 'pnpm'
+    - name: "Install root dependencies"
+      run: pnpm install
       shell: bash

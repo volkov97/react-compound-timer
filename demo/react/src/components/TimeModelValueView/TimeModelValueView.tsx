@@ -1,5 +1,5 @@
 import s from "./TimeModelValueView.module.css";
-import { TimerValue } from "../../../../../src";
+import { TimerValue } from 'react-compound-timer';
 
 interface TimeModelValueViewProps {
   title: string;

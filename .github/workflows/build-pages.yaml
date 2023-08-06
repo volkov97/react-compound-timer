@@ -1,9 +1,6 @@
 name: "Build pages"
 on:
   push:
-    # paths:
-    #   - "demo/react"
-    #   - "src"
     branches:
       - "master"
 
@@ -22,9 +19,8 @@ jobs:
       - name: Setup
         uses: ./.github/actions/static-setup
       - name: Run tests
-        run: npm test
+        run: pnpm --filter react-compound-timer run test
   build:
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,8 +29,10 @@ jobs:
           fetch-depth: 0
       - name: Setup
         uses: ./.github/actions/static-setup
+      - name: Run build on library
+        run: pnpm --filter react-compound-timer run build
       - name: Run build on demo react app
-        run: cd demo/react && npm run build
+        run: pnpm --filter demo-react run build
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v2
         with:

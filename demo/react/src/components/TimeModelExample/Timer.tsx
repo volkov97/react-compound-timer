@@ -1,4 +1,4 @@
-import { createTimeModel, useTimeModel } from "../../../../../src";
+import { createTimeModel, useTimeModel } from "react-compound-timer";
 import { TimeModelValueView } from "../TimeModelValueView/TimeModelValueView";
 
 const timer = createTimeModel({

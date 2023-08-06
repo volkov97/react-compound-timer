@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { createTimeModel, useTimeModel } from "../../../../../src";
+import { createTimeModel, useTimeModel } from "react-compound-timer";
 import { TimeModelValueView } from "../TimeModelValueView/TimeModelValueView";
 
 // default model acts like simple stopwatch
