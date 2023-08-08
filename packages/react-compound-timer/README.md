@@ -1,6 +1,6 @@
 # react-compound-timer
 
-[![version](https://img.shields.io/badge/version-2.0.2-blue)](https://www.npmjs.com/package/react-compound-timer) [![npm type definitions](https://img.shields.io/npm/types/badge-maker)](https://www.npmjs.com/package/react-compound-timer) [![downloads](https://img.shields.io/badge/downloads-12k%2Fmonth-brightgreen)](https://www.npmjs.com/package/react-compound-timer) [![coverage](https://img.shields.io/badge/coverage-88%25-green)](https://www.npmjs.com/package/react-compound-timer)
+[![version](https://img.shields.io/badge/version-2.0.3-blue)](https://www.npmjs.com/package/react-compound-timer) [![npm type definitions](https://img.shields.io/badge/types-typescript-blue)](https://www.npmjs.com/package/react-compound-timer) [![downloads](https://img.shields.io/badge/downloads-12k%2Fmonth-brightgreen)](https://www.npmjs.com/package/react-compound-timer) [![coverage](https://img.shields.io/badge/coverage-88%25-green)](https://www.npmjs.com/package/react-compound-timer)
 
 Custom react hook for creating timers, stopwatches, countdowns, etc.
 
