@@ -1,3 +1,5 @@
 docs
 webpack.config.js
 styleguide.config.js
+dist
+build

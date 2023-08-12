@@ -1,6 +1,6 @@
 {
   "name": "react-compound-timer",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "React hooks for timers, countdowns, and stopwatches.",
   "main": "./dist/cjs/react-compound-timer.cjs",
   "module": "./dist/react-compound-timer.legacy-esm.js",
